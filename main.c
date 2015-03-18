@@ -557,7 +557,7 @@ int main(void)
     advertising_init();
     services_init();
     conn_params_init();
-    //sec_params_init();
+    sec_params_init();
 
     // Start execution
     timers_start();
