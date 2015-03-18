@@ -17,4 +17,3 @@ iar/*
 *.ini	
 !arm/*.uvprojx	
 !arm/*.uvoptx
-*.txt
