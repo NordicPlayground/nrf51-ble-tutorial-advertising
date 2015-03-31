@@ -12,16 +12,9 @@
 
 /** @file
  *
- * @defgroup ble_sdk_app_template_main main.c
- * @{
- * @ingroup ble_sdk_app_template
- * @brief Template project main file.
+ * This file contains the template code meant to be used in the tutorial 
+ * "A beginner's tutorial: Advertising" found on http://devzone.nordicsemi.com/tutorials/
  *
- * This file contains a template for creating a new application. It has the code necessary to wakeup
- * from button, advertise, get a connection restart advertising on disconnect and if no new
- * connection created go back to system-off mode.
- * It can easily be used as a starting point for creating a new application, the comments identified
- * with 'YOUR_JOB' indicates where and how you can customize.
  */
 
 #include <stdint.h>
@@ -39,23 +32,16 @@
 #include "app_scheduler.h"
 #include "softdevice_handler.h"
 #include "app_timer_appsh.h"
-#include "app_gpiote.h"
-#include "bsp.h"
 
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 0                                           /**< Include or not the service_changed characteristic. if not enabled, the server's database cannot be changed for the lifetime of the device*/
 
-#define WAKEUP_BUTTON_ID                0                                           /**< Button used to wake up the application. */
-// YOUR_JOB: Define any other buttons to be used by the applications:
-// #define MY_BUTTON_ID                   1
+#define DEVICE_NAME                     "HelloWorld"                                /**< Name of device. Will be included in the advertising data. */
 
-#define DEVICE_NAME                     "HelloWorld"                           /**< Name of device. Will be included in the advertising data. */
+#define APP_ADV_INTERVAL                160                                          /**< The advertising interval (in units of 0.625 ms. This value corresponds to 40 ms). */
+#define APP_ADV_TIMEOUT_IN_SECONDS      0                                           /**< The advertising timeout (in units of seconds). */
 
-#define APP_ADV_INTERVAL                64                                          /**< The advertising interval (in units of 0.625 ms. This value corresponds to 40 ms). */
-#define APP_ADV_TIMEOUT_IN_SECONDS      180                                         /**< The advertising timeout (in units of seconds). */
-
-// YOUR_JOB: Modify these according to requirements.
 #define APP_TIMER_PRESCALER             0                                           /**< Value of the RTC1 PRESCALER register. */
-#define APP_TIMER_MAX_TIMERS            (2)// + BSP_APP_TIMERS_NUMBER)                 /**< Maximum number of simultaneously created timers. */
+#define APP_TIMER_MAX_TIMERS            2                                           /**< Maximum number of simultaneously created timers. */
 #define APP_TIMER_OP_QUEUE_SIZE         4                                           /**< Size of timer operation queues. */
 
 #define MIN_CONN_INTERVAL               MSEC_TO_UNITS(500, UNIT_1_25_MS)            /**< Minimum acceptable connection interval (0.5 seconds). */
@@ -80,18 +66,13 @@
 static ble_gap_sec_params_t             m_sec_params;                               /**< Security requirements for this application. */
 static uint16_t                         m_conn_handle = BLE_CONN_HANDLE_INVALID;    /**< Handle of the current connection. */
 
-// YOUR_JOB: Modify these according to requirements (e.g. if other event types are to pass through
-//           the scheduler).
 #define SCHED_MAX_EVENT_DATA_SIZE       sizeof(app_timer_event_t)                   /**< Maximum size of scheduler events. Note that scheduler BLE stack events do not contain any data, as the events are being pulled from the stack in the event handler. */
 #define SCHED_QUEUE_SIZE                10                                          /**< Maximum number of events in the scheduler queue. */
 
 /**@brief Function for the Timer initialization.
  * This function sets up software timers. The clock source for the timers
-are the nRF51s Real Time Clock 1 (RTC1). In this example we initialize 4 timers 
-(see the #define APP_TIMER_MAX_TIMERS). Two of the timers are 
-used in the Board Support Package (BSP) to time the blinking of the 
-LED and provide debounce functionallity to the buttons. 
-The other two are used to time the bluetooth connection intervals
+is the nRF51s Real Time Clock 1 (RTC1). In this example we initialize 2 timers 
+(see the #define APP_TIMER_MAX_TIMERS). These are used to time the bluetooth connection intervals
  */
 static void timers_init(void)
 {
@@ -134,11 +115,12 @@ static void gap_params_init(void)
     gap_conn_params.conn_sup_timeout  = CONN_SUP_TIMEOUT;
 
 	// Set GAP Peripheral Preferred Connection Parameters
+    // The device use these prefered values when negotiating connection terms with another device
     err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
     APP_ERROR_CHECK(err_code);// Check for errors
 											
 	// Set appearence										  
-	sd_ble_gap_appearance_set(BLE_APPEARANCE_GENERIC_HEART_RATE_SENSOR);
+	sd_ble_gap_appearance_set(0);
 	APP_ERROR_CHECK(err_code);// Check for errors
 }
 
@@ -150,35 +132,25 @@ static void gap_params_init(void)
  */
 static void advertising_init(void)
 {
-    uint32_t      err_code;
-    ble_advdata_t advdata;
-    uint8_t       flags = BLE_GAP_ADV_FLAGS_LE_ONLY_LIMITED_DISC_MODE;
-
-    // YOUR_JOB: Use UUIDs for service(s) used in your application.
-    //ble_uuid_t adv_uuids[] = {{BLE_UUID_HEART_RATE_SERVICE, BLE_UUID_TYPE_BLE}};
-	
-	ble_uuid_t adv_uuids[] = {{BLE_UUID_HEART_RATE_SERVICE, BLE_UUID_TYPE_BLE}};
-
+    uint32_t            err_code;
+    ble_advdata_t       advdata;    // Struct containing advertising parameters
+    uint8_t             flags       = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE; // Defines how your device is seen (or not seen) by other devices
+	ble_uuid_t          adv_uuids[] = {{0x1234, BLE_UUID_TYPE_BLE}};    // Random example User Unique Identifier
+   
+    // Populate the advertisement packet
     // Always initialize all fields in structs to zero or you might get unexpected behaviour
     memset(&advdata, 0, sizeof(advdata));
+    
+    advdata.name_type               = BLE_ADVDATA_FULL_NAME;                                             
+    advdata.flags                   = flags;                                     // Must be included, but not discussed in this tutorial
+    advdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]); // Must be included, but not discussed in this tutorial
+    advdata.uuids_complete.p_uuids  = adv_uuids;                                // Must be included, but not discussed in this tutorial
 
-    advdata.name_type               = BLE_ADVDATA_FULL_NAME;
-    advdata.include_appearance      = true;
-    advdata.flags                   = flags;
-    advdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
-    advdata.uuids_complete.p_uuids  = adv_uuids;
-
+    // Set the advertisement and scan response packet. 
     err_code = ble_advdata_set(&advdata, NULL);
     APP_ERROR_CHECK(err_code);// Check for errors
 }
 
-
-/**@brief Function for initializing services that will be used by the application.
- */
-static void services_init(void)
-{
-    // YOUR_JOB: Add code to initialize the services used by the application.
-}
 
 
 /**@brief Function for initializing security parameters.
@@ -250,19 +222,6 @@ static void conn_params_init(void)
 }
 
 
-/**@brief Function for starting timers.
-*/
-static void timers_start(void)
-{
-    /* YOUR_JOB: Start your timers. below is an example of how to start a timer.
-    uint32_t err_code; // Variable used to check for any errors returned by functions
-
-    err_code = app_timer_start(m_app_timer_id, TIMER_INTERVAL, NULL);
-    // Check for errors
-	APP_ERROR_CHECK(err_code);// Check for errors */
-}
-
-
 /**@brief Function for starting advertising.
  */
 static void advertising_start(void)
@@ -281,7 +240,7 @@ static void advertising_start(void)
 
     err_code = sd_ble_gap_adv_start(&adv_params);
     APP_ERROR_CHECK(err_code);// Check for errors
-    err_code = bsp_indication_set(BSP_INDICATE_ADVERTISING);
+
     APP_ERROR_CHECK(err_code);// Check for errors
 }
 
@@ -308,33 +267,11 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
     switch (p_ble_evt->header.evt_id)
     {
         case BLE_GAP_EVT_CONNECTED:
-            err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
-            APP_ERROR_CHECK(err_code);// Check for errors
             m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
-
-            /* YOUR_JOB: Uncomment this part if you are using the app_button module to handle button
-                         events (assuming that the button events are only needed in connected
-                         state). If this is uncommented out here,
-                            1. Make sure that app_button_disable() is called when handling
-                               BLE_GAP_EVT_DISCONNECTED below.
-                            2. Make sure the app_button module is initialized.
-            err_code = app_button_enable();
-            APP_ERROR_CHECK(err_code);// Check for errors
-            */
             break;
 
         case BLE_GAP_EVT_DISCONNECTED:
-            err_code = bsp_indication_set(BSP_INDICATE_IDLE);
-            APP_ERROR_CHECK(err_code);// Check for errors
-            m_conn_handle = BLE_CONN_HANDLE_INVALID;
-
-            /* YOUR_JOB: Uncomment this part if you are using the app_button module to handle button
-                         events. This should be done to save power when not connected
-                         to a peer.
-            err_code = app_button_disable();
-            APP_ERROR_CHECK(err_code);// Check for errors
-            */
-            
+            m_conn_handle = BLE_CONN_HANDLE_INVALID;         
             advertising_start();
             break;
 
@@ -375,11 +312,6 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
         case BLE_GAP_EVT_TIMEOUT:
             if (p_ble_evt->evt.gap_evt.params.timeout.src == BLE_GAP_TIMEOUT_SRC_ADVERTISING)
             {
-                err_code = bsp_indication_set(BSP_INDICATE_IDLE);
-                APP_ERROR_CHECK(err_code);// Check for errors
-                // Configure buttons with sense level low as wakeup source.
-                err_code = bsp_buttons_enable(1 << WAKEUP_BUTTON_ID);
-                APP_ERROR_CHECK(err_code);// Check for errors
                 // Go to system-off mode (this function will not return; wakeup will cause a reset)                
                 err_code = sd_power_system_off();
                 APP_ERROR_CHECK(err_code);// Check for errors
@@ -404,26 +336,7 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 {
     on_ble_evt(p_ble_evt);
     ble_conn_params_on_ble_evt(p_ble_evt);
-    /*
-    YOUR_JOB: Add service ble_evt handlers calls here, like, for example:
-    ble_bas_on_ble_evt(&m_bas, p_ble_evt);
-    */
 }
-
-
-/**@brief Function for dispatching a system event to interested modules.
- *
- * @details This function is called from the System event interrupt handler after a system
- *          event has been received.
- *
- * @param[in]   sys_evt   System stack event.
- */
-static void sys_evt_dispatch(uint32_t sys_evt)
-{
-    
-}
-
-
 /**@brief Function for initializing the BLE stack.
  *
  * @details Initializes the SoftDevice and the BLE event interrupt.
@@ -453,10 +366,6 @@ static void ble_stack_init(void)
     // Tell the softdevice which function is to be called i case of a BLE event. In this case: ble_evt_dispatch()
     err_code = softdevice_ble_evt_handler_set(ble_evt_dispatch);
     APP_ERROR_CHECK(err_code);// Check for errors
-    
-//    // Register with the SoftDevice handler module for BLE events.
-//    err_code = softdevice_sys_evt_handler_set(sys_evt_dispatch);
-//    APP_ERROR_CHECK(err_code);// Check for errors
 }
 
 
@@ -468,54 +377,6 @@ static void scheduler_init(void)
 }
 
 
-/**@brief Function for handling a bsp event.
- *
- * @param[in]     evt                        BSP event.
- */
-/* YOUR_JOB: Uncomment this function if you need to handle button events.
-static void bsp_event_handler(bsp_event_t evt)
-{
-        switch (evt)
-        {
-            case BSP_EVENT_KEY_0:
-                // Code to handle BSP_EVENT_KEY_0
-                break;
-
-            // Handle any other event
-
-            default:
-                APP_ERROR_HANDLER(evt);
-                break;
-        }
-    }
-}
-*/
-
-
-/**@brief Function for initializing the GPIOTE handler module.
- */
-static void gpiote_init(void)
-{
-    APP_GPIOTE_INIT(APP_GPIOTE_MAX_USERS);
-}
-
-
-/**@brief Function for initializing the button handler module.
- */
-static void buttons_init(void)
-{   
-        uint32_t err_code; // Variable used to check for any errors returned by functions
-        // Note: Before start using buttons, assign events to buttons, as shown below.
-        //      err_code = bsp_event_to_button_assign(BUTTON_0_ID, BSP_EVENT_KEY_0);
-        //      APP_ERROR_CHECK(err_code);// Check for errors
-        // Note: Enable buttons which you want to use.
-        //      err_code = bsp_buttons_enable((1 << WAKEUP_BUTTON_ID) | (1 << BUTTON_0_ID)); 
-        //      APP_ERROR_CHECK(err_code);// Check for errors
-        // Note: If the only use of buttons is to wake up, the bsp module can be omitted, and
-        // the wakeup button can be configured by
-        err_code = bsp_buttons_enable(1 << WAKEUP_BUTTON_ID);
-        APP_ERROR_CHECK(err_code);// Check for errors
-}
 
 
 /**@brief Function for the Power manager.
@@ -527,20 +388,6 @@ static void power_manage(void)
 }
 
 
-/**@brief Function for initializing bsp module.
- */
-static void bsp_module_init(void)
-{
-        uint32_t err_code; // Variable used to check for any errors returned by functions
-        // Note: If the only use of buttons is to wake up, bsp_event_handler can be NULL.
-        err_code = bsp_init(BSP_INIT_LED | BSP_INIT_BUTTONS, APP_TIMER_TICKS(100, APP_TIMER_PRESCALER), NULL);
-        APP_ERROR_CHECK(err_code);// Check for errors
-        // Note: If the buttons will be used to do some task, assign bsp_event_handler, as shown below.
-        // err_code = bsp_init(BSP_INIT_LED | BSP_INIT_BUTTONS, APP_TIMER_TICKS(100, APP_TIMER_PRESCALER), bsp_event_handler);
-        // APP_ERROR_CHECK(err_code);// Check for errors
-        // Buttons initialization.
-        buttons_init();
-}
 
 
 /**@brief Function for application main entry.
@@ -549,18 +396,14 @@ int main(void)
 {
     // Initialize
     timers_init();
-    //gpiote_init();
     ble_stack_init();
-    //bsp_module_init();
     scheduler_init();
     gap_params_init();
     advertising_init();
-    services_init();
     conn_params_init();
     sec_params_init();
 
     // Start execution
-    timers_start();
     advertising_start();
 
     // Enter main loop
