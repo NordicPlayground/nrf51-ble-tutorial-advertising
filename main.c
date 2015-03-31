@@ -240,8 +240,6 @@ static void advertising_start(void)
 
     err_code = sd_ble_gap_adv_start(&adv_params);
     APP_ERROR_CHECK(err_code);// Check for errors
-
-    APP_ERROR_CHECK(err_code);// Check for errors
 }
 
 
