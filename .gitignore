@@ -15,6 +15,7 @@ iar/*
 *.log	
 *.bak	
 *.ini	
+*.gitignore
 !arm/*.uvprojx	
 !arm/*.uvoptx
 */Backup/*
