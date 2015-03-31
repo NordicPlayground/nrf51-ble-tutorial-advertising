@@ -1,4 +1,4 @@
-# ble-app-tutorial-advertising
+# nrf51-ble-tutorial-advertising
 This example is meant to be used togheter with the tutorial "A beginner's tutorial: Advertising" found on https://devzone.nordicsemi.com/tutorials/5/a-beginners-tutorial-advertising/. The purpose of the tutorial is to get you started with the basics of the nRF51x22 and Bluetooth Low Energy (BLE). The tutorial is fairly superficial and is meant to be a hands-on introduction to BLE advertising and broadcasting of a limited payload. Hopefully after going through these steps you will be able to set up a BLE link, advertise your intentions and send your first bytes of data over the air. 
 
 Requirements
