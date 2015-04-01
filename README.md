@@ -6,9 +6,9 @@ Requirements
 <ul><ul>
 <li>nRF51 DK Development Kit
 <li>nRF51 Dongle
-<li>Keil V5.12
+<li>Keil V5.12 or later
 <li>Master Control Panel (MCP) V3.8.0. (You can also use the Master Control Panel found in the nRF Toolbox app for Android or the LightBlue app for iPhone)
-<li>nRFgo Studio V1.17.1
+<li>nRFgo Studio V1.18.0
 <li>SDK V8.0.0
 <li>SoftDevice S110 V8.0.0
 <li>Example files found on github.
