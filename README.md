@@ -14,8 +14,8 @@ Requirements
 <li>Example files found on github.
 </ul></ul>
 
-Other kits, dongles and software versions might work as well, but this will not be covered here. This tutorial will not cover how to install and setup the software. Please search the forum if you run into trouble before posting questions here. 
+Other kits, dongles and software versions might work as well, but this will not be covered here. This tutorial will not cover how to install and setup the software.
 
-To compile it, clone the repository to "your_SDK_v8.0.0_folder\examples\ble_peripheral". Download and extract the zipped version of the SDK. It will not work with the Pack installer.
+To compile it, clone the repository to "your_SDK_v8.0.0_folder\examples\ble_peripheral". Download and extract the zipped version of the SDK. It will not work with the Pack installer. If you need help with this please have a look at this thread on devzone: https://devzone.nordicsemi.com/question/35068/compiling-github-projects/
 
 Please post any questions about this project on https://devzone.nordicsemi.com.
