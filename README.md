@@ -9,13 +9,12 @@ Requirements
 <li>Keil V5.12 or later
 <li>Master Control Panel (MCP) V3.8.0. (You can also use the Master Control Panel found in the nRF Toolbox app for Android or the LightBlue app for iPhone)
 <li>nRFgo Studio V1.18.0
-<li>SDK V8.0.0
+<li>SDK V8.0.0 or V9.0.0 NOTE! The tutorial is written for SDK8.0.0 and the code style in SDK9.0.0 is slightly changed.
 <li>SoftDevice S110 V8.0.0
-<li>Example files found on github.
 </ul></ul>
 
 Other kits, dongles and software versions might work as well, but this will not be covered here. This tutorial will not cover how to install and setup the software.
 
-To compile it, clone the repository to "your_SDK_v8.0.0_folder\examples\ble_peripheral". Download and extract the zipped version of the SDK. It will not work with the Pack installer. If you need help with this please have a look at this thread on devzone: https://devzone.nordicsemi.com/question/35068/compiling-github-projects/
+To compile it, clone the repository to "your_SDK_v8.0.0_folder\examples\ble_peripheral" or "your_SDK_v9.0.0_folder\examples\ble_peripheral". Download and extract the zipped version of the SDK. It will not work with the Pack installer. If you need help with this please have a look at this thread on devzone: https://devzone.nordicsemi.com/question/35068/compiling-github-projects/
 
 Please post any questions about this project on https://devzone.nordicsemi.com.
