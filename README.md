@@ -12,7 +12,7 @@ Requirements
 <li>Master Control Panel (MCP) V3.10.014
 <li>nRFgo Studio V1.21.0.2
 <li>SDK V11.0.0-2.alpha
-<li>For nRF51 DK use SoftDevice S130 V2.0.0-4.alpha, for nRF52 DK use S132 V2.0.0-7.alpha
+<li>For nRF51 DK use SoftDevice S130 V2.0.0-7.alpha, for nRF52 DK use S132 V2.0.0-7.alpha
 </ul></ul>
 
 NOTE! Using the exact SDK and Softdevice versions is **VERY** important. As of today (2016.02.09) these are alpha releases, and the tutorial will be updated when the final releases are available.
