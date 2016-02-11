@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://devzone.nordicsemi.com/tutorials/5/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Tutorials - Nordic Developer Zone</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=1024, initial-scale=0.5">
+        <meta name="referrer" content="always">
+        <link rel="shortcut icon" href="https://devzone.nordicsemi.com/static/favicon.ico">
+        
+
+        
+<link rel="stylesheet" href="./BLE Advertising, a beginner's tutorial_files/wmd.css">
+<link rel="stylesheet" href="./BLE Advertising, a beginner's tutorial_files/tutorials.css">
+
+        <link href="./BLE Advertising, a beginner's tutorial_files/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="./BLE Advertising, a beginner's tutorial_files/style.css" rel="stylesheet" type="text/css">
+        <link href="./BLE Advertising, a beginner's tutorial_files/common.css" rel="stylesheet" type="text/css">
+        <link href="./BLE Advertising, a beginner's tutorial_files/cms.css" rel="stylesheet" type="text/css">
+    </head>
+    <body class="admin">
+        <header id="cmsheader">
+            
+            <div class="content-wrapper">
+                <a href="https://devzone.nordicsemi.com/">
+                    <img id="logo" src="./BLE Advertising, a beginner's tutorial_files/logo.png" alt="Nordic Semiconductor Developer Zone">
+                </a>
+            </div>
+        </header>
+        <div id="menu">
+            <div class="content-wrapper">
+                <ul class="cmsmenu"> 
+                    
+
+<li class="sibling">
+	<a href="https://devzone.nordicsemi.com/">Questions</a>
+	
+</li>
+
+<li class="sibling">
+	<a href="https://devzone.nordicsemi.com/blogs/">Blogs</a>
+	
+</li>
+
+<li class="selected">
+	<a href="https://devzone.nordicsemi.com/tutorials/">Tutorials</a>
+	
+</li>
+
+<li class="sibling">
+	<a href="https://devzone.nordicsemi.com/docs/">SDK and Documentation</a>
+	
+</li>
+
+<li class="sibling">
+	<a href="https://devzone.nordicsemi.com/tour/">Tour</a>
+	
+</li>
+
+<li class="sibling">
+	<a href="https://devzone.nordicsemi.com/about/">About </a>
+	
+</li>
+
+
+                </ul>
+                <ul class="linkmenu">
+                    <li><a href="https://github.com/NordicSemiconductor">GitHub/Nordic</a></li>
+                    <li><a href="https://www.nordicsemi.com/">nordicsemi.com</a></li>
+                </ul>
+            </div>
+        </div>
+        
+
+        
+<div id="secondaryHeader">
+    <div class="content-wrapper">
+        <div class="search-bar">
+            <form action="https://devzone.nordicsemi.com/tutorials/search/" method="get">
+                <div id="scopeNav">
+                    <a class="scope-selector" href="https://devzone.nordicsemi.com/tutorials/all/">all</a>
+                    
+                </div>
+                <div id="searchBar">
+                    <input class="searchInput" type="text" autocomplete="off" value="" name="query" id="keywords" placeholder="search in tutorials...">
+                    <input type="submit" value="" class="searchBtn">
+                    <input type="button" value="X" class="cancelSearchBtn" style="display: none;">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        <div class="content-wrapper">
+        
+<div id="ContentLeft">
+    
+    
+<script type="text/javascript" defer="" async="" src="./BLE Advertising, a beginner's tutorial_files/piwik.js"></script><script async="" src="./BLE Advertising, a beginner's tutorial_files/analytics.js"></script><script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/jquery-1.7.2.min.js" style="color: rgb(112, 112, 112);"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#report_spam_tutorial_button').click(function(){
+			if(confirm('Are you sure this is spam?')){
+	            $.ajax({
+		            type: "POST",
+		            cache: false,
+		            dataType: "json",
+		            url: '/tutorials/5/report_spam/',
+		            success: function(data) {
+		            	$(location).attr('href',"/tutorials");
+		            },
+	        	});
+	    	}
+	    });
+    });
+</script>
+<div class="actions">
+    
+        <a href="https://devzone.nordicsemi.com/tutorials/5/edit/" title="Edit this post">edit</a>
+        <a href="https://devzone.nordicsemi.com/tutorials/5/delete/" title="Delete this post">delete</a>
+    
+</div>
+
+<div class="tutorial-author">
+    
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="2015-02-18 16:23:59 +0100">Feb 18 '15</abbr></p>
+
+</div>
+
+<h1 class="tutorial-heading">BLE Advertising, a beginner's tutorial</h1>
+
+<p class="tutorial-preamble"><b><i>The purpose of this tutorial is to get you started with the basics of the nRF5x and Bluetooth Low Energy (BLE). The tutorial is fairly superficial and is meant to be a hands-on introduction to BLE advertising and broadcasting of a limited payload. Hopefully after going through these steps you will be able to set up a BLE link, advertise your intentions and send your first bytes of data over the air.</i></b></p>
+
+<div class="tutorial meta">
+    <ul class="tags">
+        
+        <li class="tag-left">
+            <a href="https://devzone.nordicsemi.com/tutorials/tags/1630/" class="tag tag-right">nrf51 dk</a>
+        </li>
+        
+        <li class="tag-left">
+            <a href="https://devzone.nordicsemi.com/tutorials/tags/1851/" class="tag tag-right">nrf51 dongle</a>
+        </li>
+        
+        <li class="tag-left">
+            <a href="https://devzone.nordicsemi.com/tutorials/tags/2719/" class="tag tag-right">Advertisement</a>
+        </li>
+        
+        <li class="tag-left">
+            <a href="https://devzone.nordicsemi.com/tutorials/tags/1592/" class="tag tag-right">hello world</a>
+        </li>
+        
+    </ul>
+    <br>
+</div>
+
+<div class="tutorial page content">
+    <p></p><h1> Before we begin</h1> <p></p>
+<h3>Table of context</h3><ul><ol>
+  <li>Before we begin</li>
+  <li>The "Hello world" example</li>
+  <li>Advertising</li>
+    <ul>
+      <li>RSSI</li>
+      <li>Addresses</li>
+      <li>Address types</li>
+      <li>Advertising types</li>
+      <li>Bonding</li>
+    </ul>
+  
+  <li>Advertising data</li>
+  <li>Scan response data</li>
+</ol></ul><p><strong>Change Log 2016.02.09:</strong> Updated tutorial to suit SDK V11.0.0-2.alpha and the possibility to use both nRF51 and nRF52 kits. </p>
+<p></p><h3>Equipment and software</h3>
+To complete this tutorial you will need the following:<p></p>
+<ul><ul>
+<li><a href="https://www.nordicsemi.com/eng/Products/nRF51-DK">nRF51 DK or nRF52 DK Development Kit</a>
+</li><li><a href="https://www.nordicsemi.com/eng/Products/nRF51-Dongle">nRF51 Dongle</a>
+</li><li>Keil V5.17.
+</li><li><a href="https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822#Downloads">Master Control Panel (MCP) V3.10.0</a>. (You can also use the Master Control Panel found in the nRF Toolbox app for Android or the LightBlue app for iPhone)
+</li><li><a href="https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822#Downloads">nRFgo Studio V1.21.0.2</a>
+</li><li><a href="http://developer.nordicsemi.com/nRF51_SDK/">SDK V11.0.0-2.alpha</a> <strong>NOTE! This tutorial is written for SDK V11.0.0-2.alpha. Example files for SDK V8.x.0 and SDK V9.0.0 can also be found on github, but the APIs are different.</strong>
+</li><li>For nRF51 DK use <a href="https://www.nordicsemi.com/eng/nordic/Products/nRF51822/S130-SD-v2/51469">SoftDevice S130 V2.0.0-7.alpha</a> for nRF52 DK use <a href="https://www.nordicsemi.com/eng/nordic/Products/nRF52832/S132-SD-v2/51479">S132 V2.0.0-7.alpha</a>. 
+</li><li><a href="https://github.com/NordicSemiconductor/nrf51-ble-tutorial-advertising">Example files found on github</a>.
+</li></ul></ul><p><strong>NOTE!</strong> Using the exact SDK and Softdevice versions is <strong>VERY</strong> important. As of today (2016.02.09) these are alpha releases, and the tutorial will be updated when the final releases are available.</p>
+<p>Other kits, dongles and software versions might work as well, but this is what I have used. This tutorial will not cover how to install and setup the software. Please search the forum if you run into trouble before posting questions here. </p>
+<p></p><h3>Necessary prior knowledge </h3>
+It is expected that you have basic knowledge of how to use Keil, MCP and nRFgo Studio and how to download your application to your kit. Please browse the <a href="https://devzone.nordicsemi.com/tutorials/">Tutorial section</a> and the <a href="http://infocenter.nordicsemi.com/">Infocenter</a> to find guides on how to use your equipment and compile your first BLE application. <a href="https://devzone.nordicsemi.com/blogs/782/bluetooth-smart-and-the-nordics-softdevices-part-1/">Here</a> is an excellent blogpost that I highly recommend you read. It provides a more in depth explanation on how advertising works and is a natural supplement to this tutorial. <p></p>
+<p><strong>If you run into troubles please browse devzone, look for documentation on our <a href="http://infocenter.nordicsemi.com/index.jsp">Infocenter</a>, and read the user guides for your kits. I urge you to post any questions you might have on the forum and not below the tutorial. This makes it is easier for other users and Nordic employees to see and search for your question and you will actually most likely get a faster response(!).</strong></p>
+<p></p><h1>The “Hello world” example</h1>
+First thing first: download the example code from github. It is based on the template example found in the SDK V11.0.0-2.alpha, but stripped of all code that is not necessary for our purpose. There is still quite a lot of code left though, which is used to initiate and utilize processes running in the background. The code is not essential for this tutorial and can be left as is. If you are curious of what it is anyway then here are some links to documentation on some of the modules that are used in the code:<p></p>
+<ol>
+<li>The <a href="http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v11.0.0/group__device__manager.html">Device Manager</a>. This is a module that handles active and bonded connections. Since this tutorial is about advertising and not connections it is not really relevant. Still I chose to leave it in the code as it is extensively used in more advanced examples, so I figured you might just as well get used to it being there and it doesn't do any harm. </li>
+<li><a href="http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk51.v10.0.0/group__bsp.html?resultof=%22%62%75%74%74%6f%6e%22%20%22%73%75%70%70%6f%72%74%22%20">The Button Support Package (bsp)</a>. This module is used to handle the LEDs and the buttons. In this example you will notice that an LED is blinking when your board is advertising. After 180 seconds the board will stop advertising and go to sleep. Then you can push Button 1 and the board will wake up and start advertising again. All this is handled by the bsp module. </li>
+<li>Various _evt() and _dispatch() functions. These are functions that handle BLE and system events that originates in the Softdevice. They also allow your application to take various actions based on what is going on in the Softdevice. We will not dwell on these functions in this tutorial. </li>
+</ol>
+<p>To compile the example download the files and copy the folder "nrf51-ble-tutorial-advertising" to "your_SDK_v11.0.0-2.alpha_folder\examples\ble_peripheral". Your main.c file should then be found in the folder "your_SDK_v11.0.0-2.alpha_folder\examples\ble_peripheral\nrf51-ble-tutorial-advertising". The example is intended for the zipped version of the SDK. It will <strong>not work</strong> with the Pack installer. If you need help with this please have a look at this thread on devzone: <a href="https://devzone.nordicsemi.com/question/35068/compiling-github-projects/">Compiling github projects</a>. Open the project file "ble_app_tutorial_advertising.uvprojx" and hit “Build”.  It should compile without any errors or warnings. </p>
+<p></p><h1>Advertising</h1>
+Now, let us have some fun right away. Make sure you have programmed the correct SoftDevice to your nRF5x DK kit and compiled the example successfully. Then hit the download button in Keil and load the example onto your kit as well. Open MCP and start discovery using your nRF51 Dongle as master emulator. To learn how to use MCP and a master emulator read this tutorial: <a href="https://devzone.nordicsemi.com/tutorials/4/testing-and-using-a-simple-ble-application/">Testing and using a simple BLE application</a>. A device named “HelloWorld” should show up in the list of discovered devices as shown in the picture below. 
+<img src="./BLE Advertising, a beginner's tutorial_files/97d2f383c10d56164ae429d74a602f24" alt="Discovered device(s)"><p></p>
+<p>What you see in the picture is:</p>
+<ul><ul>
+<li>The device name as defined in our main.c file. Try to search for <code>#define DEVICE_NAME</code> in your code and change the string to something of your own choice (just don’t make it too long). Now compile and download your application again and see how your device name has changed.
+</li><li>The Bluetooth Device Address. Similar to a Media Access Control address (MAC address), but not necessarily universally unique.
+</li><li>The Received Signal Strength Indicator (RSSI). This is a value of how good your signal strength is. Move your kit around or lay your hand over the PCB antenna on your kit and see how the RSSI changes. 
+</li></ul></ul><p></p><h2>The Advertising packet</h2>
+Now expand the "HelloWorld" device tree by clicking on the little cross to the left. You should see something similar to the next image.
+<img src="./BLE Advertising, a beginner's tutorial_files/0aa53854483df96a923d2513f4e1a66b" alt="Your first advertising packet"><p></p>
+<p>What you see here is:</p>
+<p></p><h3>RSSI</h3>
+The Received Signal Strength Indicator as mentioned above.<p></p>
+<p></p><h3>Address</h3>
+The Bluetooth Device Address as mentioned above.<p></p>
+<p></p><h3>Address Type</h3>
+Address type as defined in the Bluetooth Core specification. See <a href="https://devzone.nordicsemi.com/question/6496/gap-address-types/">this post</a> on devzone for more on address types. The default address type in our example is “Random static address”. Try to go into <code>gap_params_init()</code> in main.c and add these four lines at the end of the function:<p></p>
+<pre class="prettyprint prettyprinted"><code><span class="typ">ble_gap_addr_t</span><span class="pln"> gap_address</span><span class="pun">;</span><span class="pln">
+gap_address</span><span class="pun">.</span><span class="pln">addr_type </span><span class="pun">=</span><span class="pln"> BLE_GAP_ADDR_TYPE_RANDOM_PRIVATE_RESOLVABLE</span><span class="pun">;</span><span class="pln">
+err_code </span><span class="pun">=</span><span class="pln"> sd_ble_gap_address_set</span><span class="pun">(</span><span class="pln">BLE_GAP_ADDR_CYCLE_MODE_AUTO</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">gap_address</span><span class="pun">);</span><span class="pln">
+APP_ERROR_CHECK</span><span class="pun">(</span><span class="pln">err_code</span><span class="pun">);</span><span class="com">// Check for errors</span></code></pre>
+<p>This will set the address type to “Private Resolvable address”.The Address type will still show up as “Random”, but try to reset your board a few times. You should see that after each reset your device shows up with a different address in the device list. This functionality might be handy in certain situations demanding higher security. Remove the lines again to change the address type back to “Random static address”. </p>
+<p></p><h3>Advertising Type</h3>
+To keep it simple there are two advertising types; connectable and non-connectable. Non-connectable might be useful if you just need one-way communication and only need to broadcast a couple of bytes. One use case for this might for example be <a href="https://www.nordicsemi.com/eng/News/ULP-Wireless-Update/The-next-level-of-location-awareness/%28language%29/eng-GB">location awareness</a>. If you want to send more data to a specific device, on the other hand, you need a connectable device. Examples here might be a heart rate sensor connected to an app on your phone or a Bluetooth headset. <p></p>
+<p></p><h3>Bonded</h3>
+This shows whether the device is bonded to another device or not. The purpose of bonding is described in the <a href="https://www.bluetooth.com/specifications/adopted-specifications">Bluetooth Core Specification 4.2</a> as: <p></p>
+<ul>"The purpose of bonding is to create a relation between two Bluetooth devices based on a common link key (a bond). The link key is created and exchanged (pairing) during the bonding procedure and is expected to be stored by both Bluetooth devices, to be used for future authentication[...]"</ul><p></p><h1>Advertising Data</h1>
+Now to the fun part! Go to the <code>advertising_init()</code> function. The advertising data fields contained in the <code>advdata</code> variable are the fields where you can configure your first advertising packet. The advertising packet in this example already contains your full device name. It also contains flags defining some of the advertising options. The flag field is mandatory, but we will discuss it here.<p></p>
+<p>Search for the definition of the <code>ble_advdata_t</code> advertising data structure in your project files (right click on <code>ble_advdata_t</code> and click "Go To Definition Of 'ble_advdata_t'. This works on all functions and variables). When you find it you can see that it is a list of options and data structures with some very brief descriptions. There are quite a few options, but it is important to know that an advertising packet <strong>can consist of no more than 31 bytes</strong>, so you might need to select your data with care. <a href="https://devzone.nordicsemi.com/question/37952/setting-tx_power_level/">Here</a> is a useful discussion on advertising bytes. </p>
+<p>First let us play with the name and pretend that we need a really long one. Find the "DEVICE_NAME" define again and change the string to “ThisIsAReallyLongName”. Compile and download the code and make sure your new name shows in the device list. This name consumes a lot of our precious 31 byte long advertising packet. So let us say we want to keep our long name, but only advertise the first few letters of it. The <code>advertising_init()</code> function should now look something like this:</p>
+<pre class="prettyprint prettyprinted"><code><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> advertising_init</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">uint32_t</span><span class="pln">      err_code</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">ble_advdata_t</span><span class="pln"> advdata</span><span class="pun">;</span><span class="pln">  </span><span class="com">// Struct containing advertising parameters</span><span class="pln">
+
+    </span><span class="com">// Build advertising data struct to pass into @ref ble_advertising_init.</span><span class="pln">
+    memset</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">advdata</span><span class="pun">));</span><span class="pln">
+
+    advdata</span><span class="pun">.</span><span class="pln">name_type               </span><span class="pun">=</span><span class="pln"> BLE_ADVDATA_FULL_NAME</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">flags                   </span><span class="pun">=</span><span class="pln"> BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">ble_adv_modes_config_t</span><span class="pln"> options </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="lit">0</span><span class="pun">};</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_enabled  </span><span class="pun">=</span><span class="pln"> BLE_ADV_FAST_ENABLED</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_interval </span><span class="pun">=</span><span class="pln"> APP_ADV_INTERVAL</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_timeout  </span><span class="pun">=</span><span class="pln"> APP_ADV_TIMEOUT_IN_SECONDS</span><span class="pun">;</span><span class="pln">
+
+    err_code </span><span class="pun">=</span><span class="pln"> ble_advertising_init</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">options</span><span class="pun">,</span><span class="pln"> on_adv_evt</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+    APP_ERROR_CHECK</span><span class="pun">(</span><span class="pln">err_code</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>Change the advertising name type to:</p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">advdata</span><span class="pun">.</span><span class="pln">name_type </span><span class="pun">=</span><span class="pln"> BLE_ADVDATA_SHORT_NAME</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Use a shortened name</span></code></pre>
+<p>Then right below this add the line:</p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">advdata</span><span class="pun">.</span><span class="pln">short_name_len </span><span class="pun">=</span><span class="pln"> </span><span class="lit">6</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Advertise only first 6 letters of name</span></code></pre>
+<p>Compile and download again. In the “Discovered devices” list your device should now show up with the name “ThisIs”, the first 6 letters of the full name. However, if you connect to your device by clicking “Select device”, “Connect” and then “Discover services” you will see that the full name is still there. In our case, this frees up 15 bytes in the advertising packet.</p>
+<p></p><h3>Manufacturer Specific Data</h3>
+One of the most interesting fields in the advertising data structure might be the <code>p_manuf_specific_data</code> field. This is a field where you can place whatever data you want. So copy the <code>advertising_init()</code> function below:<p></p>
+<pre class="prettyprint prettyprinted"><code><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> advertising_init</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">uint32_t</span><span class="pln">      err_code</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">ble_advdata_t</span><span class="pln"> advdata</span><span class="pun">;</span><span class="pln">  </span><span class="com">// Struct containing advertising parameters</span><span class="pln">
+
+    </span><span class="typ">ble_advdata_manuf_data_t</span><span class="pln">        manuf_data</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Variable to hold manufacturer specific data</span><span class="pln">
+    </span><span class="typ">uint8_t</span><span class="pln"> data</span><span class="pun">[]</span><span class="pln">                      </span><span class="pun">=</span><span class="pln"> </span><span class="str">"SomeData!"</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Our data to adverise</span><span class="pln">
+    manuf_data</span><span class="pun">.</span><span class="pln">company_identifier       </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0x0059</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Nordics company ID</span><span class="pln">
+    manuf_data</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">p_data              </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">;</span><span class="pln">     
+    manuf_data</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">size                </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">data</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="com">// Build advertising data struct to pass into @ref ble_advertising_init.</span><span class="pln">
+    memset</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">advdata</span><span class="pun">));</span><span class="pln">
+
+    advdata</span><span class="pun">.</span><span class="pln">name_type               </span><span class="pun">=</span><span class="pln"> BLE_ADVDATA_SHORT_NAME</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">short_name_len          </span><span class="pun">=</span><span class="pln"> </span><span class="lit">6</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">flags                   </span><span class="pun">=</span><span class="pln"> BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">p_manuf_specific_data   </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">manuf_data</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">ble_adv_modes_config_t</span><span class="pln"> options </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="lit">0</span><span class="pun">};</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_enabled  </span><span class="pun">=</span><span class="pln"> BLE_ADV_FAST_ENABLED</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_interval </span><span class="pun">=</span><span class="pln"> APP_ADV_INTERVAL</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_timeout  </span><span class="pun">=</span><span class="pln"> APP_ADV_TIMEOUT_IN_SECONDS</span><span class="pun">;</span><span class="pln">
+
+    err_code </span><span class="pun">=</span><span class="pln"> ble_advertising_init</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">options</span><span class="pun">,</span><span class="pln"> on_adv_evt</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+    APP_ERROR_CHECK</span><span class="pun">(</span><span class="pln">err_code</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>Now compile, download and check your MCP. You can see that there is a new field in the “Advertising Data” list called “ManufacturerSpecificData”. It contains a cryptic string of hexadecimal numbers. The first two numbers are the company ID (0x0059) with the least significant byte first. The company ID is a unique 16-bit value assigned to Bluetooth SIG members. It is not allowed to broadcast a custom company ID value without being a member. If you are curious you can see a list of the Bluetooth SIG member IDs <a href="https://www.bluetooth.org/en-us/specification/assigned-numbers/company-identifiers">here</a>. As described at the bottom of the page the value 0xFFFF "<em>may be used in the internal and interoperability tests before a Company ID has been assigned. This value shall not be used in shipping end products</em>". When you are ready for shipping you will need to apply for a Bluetooth SIG membership to get your own unique ID. "Adopter level" membership is free, but you will need to be associated with a valid company.
+The next 10 bytes in the manufacturer specific data field are the actual data. If you compare with an ASCII table you will recognize the string “SomeData!”, most significant byte first this time. The last two zeroes at the end represent a termination character in the string. </p>
+<p><strong>Challenge 1:</strong> Try to add and populate the <i>"p_tx_power_level"</i> field in <i>"advdata"</i> with a value of your own choice and see what happens in MCP. This field is meant to advertise the transmit power of your device. This value might, e.g., enable other units to roughly estimate the distance to your device. (Keep in mind that you will have to use one of the valid tx power levels shown in Chapter 8.5.3 in the <a href="https://www.nordicsemi.com/eng/nordic/Products/nRF51822/nRF51822-PS/20339">nRF51 Product Specification V3.1</a>. It is also important to know that this doesn't change the actual transmit power, just the information that is advertised).</p>
+<p><strong>Challenge 2:</strong> Set the <i>"include_appearance"</i> field in <i>"advdata"</i> to <i>"true"</i> and see what happens in MCP. Then search for <code>sd_ble_gap_appearance_set(0)</code> in your main file and change the ‘0’ to <i>“BLE_APPEARANCE_HID_MOUSE”</i> and see what happens. The appearance feature might be useful to developers of e.g. mobile phone apps. If you have a BLE enabled phone (or a laptop) your kit should now show up with the name "ThisIs" and a computer mouse icon if you search for BLE devices.</p>
+<p><strong>Tips:</strong> Your advertisement packet is already getting dangerously full so you might want to shorten your manufacturer data size or device name.</p>
+<p>This is what I can see on my phone:</p>
+<p><img src="./BLE Advertising, a beginner's tutorial_files/5982a6f38b8af1b55629a1ebfc37a5aa" width="300"></p>
+<p></p><h2>Scan response data</h2>
+But what if you really, really want to advertise more than 31 bytes? Then there is a solution for you and that is the Scan response data. This is an optional "secondary" advertising payload which allows scanning devices that detect an advertising device to request a second advertising packet. This allows you to send two advertising frames with a total payload of 62 bytes. <p></p>
+<p><strong>Challenge:</strong> 
+In your code, immediately above the line <code>err_code = ble_advdata_set(&amp;advdata, NULL)</code>, do the following:</p>
+<ul><ol>
+<li>Declare a new <i>"ble_advdata_manuf_data_t"</i> type variable called <i>"manuf_data_response"</i>.</li>
+<li>Populate <i>"manuf_data_response"</i> with data as we did with the first advertising packet.</li>
+<li>Declare a new <i>"ble_advdata_t"</i> type variable called <i>"advdata_response"</i>.</li>
+<li>Populate <i>"advdata_response"</i> with name type <i>"BLE_ADVDATA_NO_NAME"</i>.</li>
+<li>Populate <i>"advdata_response"</i> with your new manufacturer specific data. </li>
+<li>Change the line
+<p><code>err_code = ble_advdata_set(&amp;advdata, NULL);</code></p>
+<p>to</p> <code>err_code = ble_advdata_set(&amp;advdata, &amp;advdata_response);</code></li>
+<li>Compile, download and see what happens. </li>
+</ol></ul><p>This should make your device look something like this in MCP:
+<img src="./BLE Advertising, a beginner's tutorial_files/ad57e564f2585fd349e4d84cb4979d7e" alt="Advertising with Scan response"></p>
+<p>In case you need help your <code>advertising_init()</code> function should now look similar to this:</p>
+<pre class="prettyprint prettyprinted"><code><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> advertising_init</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">uint32_t</span><span class="pln">      err_code</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">ble_advdata_t</span><span class="pln"> advdata</span><span class="pun">;</span><span class="pln">  </span><span class="com">// Struct containing advertising parameters</span><span class="pln">
+
+    </span><span class="typ">ble_advdata_manuf_data_t</span><span class="pln">        manuf_data</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Variable to hold manufacturer specific data</span><span class="pln">
+    </span><span class="typ">uint8_t</span><span class="pln"> data</span><span class="pun">[]</span><span class="pln">                      </span><span class="pun">=</span><span class="pln"> </span><span class="str">"SomeData!"</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Our data to adverise</span><span class="pln">
+    manuf_data</span><span class="pun">.</span><span class="pln">company_identifier       </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0x0059</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Nordics company ID</span><span class="pln">
+    manuf_data</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">p_data              </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">;</span><span class="pln">     
+    manuf_data</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">size                </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">data</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="com">// Build advertising data struct to pass into @ref ble_advertising_init.</span><span class="pln">
+    memset</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">advdata</span><span class="pun">));</span><span class="pln">
+
+    advdata</span><span class="pun">.</span><span class="pln">name_type               </span><span class="pun">=</span><span class="pln"> BLE_ADVDATA_SHORT_NAME</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">short_name_len          </span><span class="pun">=</span><span class="pln"> </span><span class="lit">3</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">flags                   </span><span class="pun">=</span><span class="pln"> BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">p_manuf_specific_data   </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">manuf_data</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">int8_t</span><span class="pln"> tx_power                 </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-</span><span class="lit">4</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">p_tx_power_level        </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">tx_power</span><span class="pun">;</span><span class="pln">
+    advdata</span><span class="pun">.</span><span class="pln">include_appearance      </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="com">// Prepare the scan response Manufacturer specific data packet</span><span class="pln">
+    </span><span class="typ">ble_advdata_manuf_data_t</span><span class="pln">                manuf_data_response</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">uint8_t</span><span class="pln">                                 data_response</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Many_bytes_of_data"</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Remember there is a 0 terminator at the end of string</span><span class="pln">
+    manuf_data_response</span><span class="pun">.</span><span class="pln">company_identifier       </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0x0059</span><span class="pun">;</span><span class="pln">               
+    manuf_data_response</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">p_data              </span><span class="pun">=</span><span class="pln"> data_response</span><span class="pun">;</span><span class="pln">        
+    manuf_data_response</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">size                </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">data_response</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="typ">ble_advdata_t</span><span class="pln">   advdata_response</span><span class="pun">;</span><span class="com">// Declare and populate a scan response packet</span><span class="pln">
+
+    </span><span class="com">// Always initialize all fields in structs to zero or you might get unexpected behaviour</span><span class="pln">
+    memset</span><span class="pun">(&amp;</span><span class="pln">advdata_response</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">advdata_response</span><span class="pun">));</span><span class="pln">
+    </span><span class="com">// Populate the scan response packet</span><span class="pln">
+    advdata_response</span><span class="pun">.</span><span class="pln">name_type               </span><span class="pun">=</span><span class="pln"> BLE_ADVDATA_NO_NAME</span><span class="pun">;</span><span class="pln"> 
+    advdata_response</span><span class="pun">.</span><span class="pln">p_manuf_specific_data   </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">manuf_data_response</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">ble_adv_modes_config_t</span><span class="pln"> options </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="lit">0</span><span class="pun">};</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_enabled  </span><span class="pun">=</span><span class="pln"> BLE_ADV_FAST_ENABLED</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_interval </span><span class="pun">=</span><span class="pln"> APP_ADV_INTERVAL</span><span class="pun">;</span><span class="pln">
+    options</span><span class="pun">.</span><span class="pln">ble_adv_fast_timeout  </span><span class="pun">=</span><span class="pln"> APP_ADV_TIMEOUT_IN_SECONDS</span><span class="pun">;</span><span class="pln">
+
+    err_code </span><span class="pun">=</span><span class="pln"> ble_advertising_init</span><span class="pun">(&amp;</span><span class="pln">advdata</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">advdata_response</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">options</span><span class="pun">,</span><span class="pln"> on_adv_evt</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+    APP_ERROR_CHECK</span><span class="pun">(</span><span class="pln">err_code</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p></p><h2>Summary</h2>
+And there you go. Your first nRF5x DK kit advertising its name, various options, and a small payload. Once again I recommend that you take a look at this blog post: <a href="https://devzone.nordicsemi.com/blogs/782/bluetooth-smart-and-the-nordics-softdevices-part-1/">Bluetooth Smart and the Nordic's Softdevices - Part 1 GAP Advertising</a>. The next step will be to add services and characteristics: <a href="https://devzone.nordicsemi.com/tutorials/8/ble-services-a-beginners-tutorial/">BLE Services, a beginner's tutorial</a><p></p>
+
+</div>
+
+<div class="comments">
+    
+
+<h2>31 comments</h2>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/3776/wass0392/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="Wass0392" alt="Wass0392 gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/3776/wass0392/">Wass0392</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">83</span>
+        
+
+        
+        <span class="badges" title="Wass0392 has one gold badge, 6 silver badges and 7 bronze badges">
+            
+                <span class="badge1">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge2">●</span><span class="badgecount">6</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">7</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="April 18, 2015, 12:01 a.m.">April 18, 2015, 12:01 a.m.</abbr></p>
+
+    </div>
+    <p>after downloading the github file, where should one extract the file to? I can never get downloaded github projects to work? any insight would be a massive help</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=4#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/4/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/5668/ferdas/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="Ferdas" alt="Ferdas gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/5668/ferdas/">Francesco F</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">13</span>
+        
+
+        
+        <span class="badges" title="Ferdas has 3 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">3</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="April 19, 2015, 3:42 p.m.">April 19, 2015, 3:42 p.m.</abbr></p>
+
+    </div>
+    <p>Hi,
+You should move into the directory</p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">nRF51_SDK_8</span><span class="pun">.</span><span class="lit">0.0</span><span class="pln">_5fc2c3a</span><span class="pun">/</span><span class="pln">examples</span><span class="pun">/</span><span class="pln">ble_peripheral</span></code></pre>
+<p>of the official SDK, then downloading the code example by typing</p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">git clone https</span><span class="pun">:</span><span class="com">//github.com/NordicSemiconductor/nrf51-ble-tutorial-advertising.git</span></code></pre>
+<p>after that you can proceed compiling as you always did with other example projects :)</p>
+<p>I hope it helped,</p>
+<p>Francesco</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=5#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/5/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/7148/muhkuhns/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="muhkuhns" alt="muhkuhns gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/7148/muhkuhns/">muhkuhns</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">174</span>
+        
+
+        
+        <span class="badges" title="muhkuhns has 33 silver badges and 11 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">33</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">11</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="April 21, 2015, 7:48 p.m.">April 21, 2015, 7:48 p.m.</abbr></p>
+
+    </div>
+    <p>Thanks for this Guide! (I guess. Haven't tried it out yet, but soon I will!)</p>
+<p>What am I suppose to use for "manuf_data.company_identifier" as I don't work for a Bluetooth SIG Company ? ;-)</p>
+<p>0xFFFF ? <a href="https://www.bluetooth.org/en-us/specification/assigned-numbers/company-identifiers">https://www.bluetooth.org/en-us/specification/assigned-numbers/company-identifiers</a></p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=6#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/6/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="April 22, 2015, 9:16 a.m.">April 22, 2015, 9:16 a.m.</abbr></p>
+
+    </div>
+    <p>Hi. Thank you for your comment. I have updated the text to make it clearer for future readers. As stated in your link:</p>
+<blockquote><p>This value [0xFFFF] may be used in the internal and interoperability tests before a Company ID has been assigned. This value shall not be used in shipping end products.</p>
+
+</blockquote><p>Any other values are reserved and forbidden to use in an end product. When you are ready for shipping you will need to apply for a Bluetooth SIG membership to get your own unique ID. "Adopter level" membership is free, but you will need to be associated with a valid company. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=8#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/8/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/4299/el34pp/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(1)" title="EL34PP" alt="EL34PP gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/4299/el34pp/">EL34PP</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">1</span>
+        
+
+        
+        <span class="badges" title="EL34PP has 2 silver badges and one bronze badge">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">2</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">1</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 9, 2015, 5:48 a.m.">May 9, 2015, 5:48 a.m.</abbr></p>
+
+    </div>
+    <p>Thanks for this guide and it's great.
+When will have Advertise UUID/flag tutorial?
+I'm waiting for this.</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=25#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/25/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 12, 2015, 10:41 a.m.">May 12, 2015, 10:41 a.m.</abbr></p>
+
+    </div>
+    <p>@EL34PP The next tutorial is a work in progress, but I can't make any promises for a "release date".</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=27#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/27/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/4854/jialee/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="jialee" alt="jialee gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/4854/jialee/">John</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">17</span>
+        
+
+        
+        <span class="badges" title="jialee has 9 silver badges and 8 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">8</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 14, 2015, 12:40 a.m.">May 14, 2015, 12:40 a.m.</abbr></p>
+
+    </div>
+    <p>Hi all,</p>
+<p>I followed this instruction from github. </p>
+<blockquote><p>To compile it, clone the repository to "your_SDK_v8.0.0_folder\examples\ble_peripheral". Download and extract the zipped version of the SDK. It will not work with the Pack installer. If you need help with this please have a look at this thread on devzone:</p>
+
+</blockquote><p>My path is C:\Keil_v5\ARM\Pack\NordicSemiconductor\nRF_Examples\8.0.0\ble_peripheral. However, it showed me an error. </p>
+<p><img src="./BLE Advertising, a beginner's tutorial_files/13eebae23153e95bdbd6cd2fecf61111" alt="error"></p>
+<p>I'm using Keil v5.14. Please help. </p>
+<p>John</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=31#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/31/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/7497/shubhamkumarmishra/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="shubhamkumarmishra" alt="shubhamkumarmishra gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/7497/shubhamkumarmishra/">Shubham Kumar Mishra</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">1</span>
+        
+
+        
+        <span class="badges" title="shubhamkumarmishra has one silver badge and one bronze badge">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">1</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 14, 2015, 9:29 a.m.">May 14, 2015, 9:29 a.m.</abbr></p>
+
+    </div>
+    <p>I tried the things mentione above . 
+I have PC10003 EK (nRF51422), for check i turned on my TICK_LED(LED_0) function in main. 
+But it seems the control is not transferring to the main functions. 
+And I tried with various example but I never seen PC10003 board ble get turned on. </p>
+<p>IROM1:   0x18000  size 0x28000</p>
+<p>IRAM  : 0x2000200  size : 0x6000</p>
+<p>This is how I configured the memory address. </p>
+<p>Please help me now, this is situation of give up , Don't know where and what I am missing. 
+Soft Device version S110 BLE_STACK using right now . </p>
+<p>Please help me asap.   Or is there any hardware fault? How could I check that BLE module of PCA10003 board for any hardware issues?</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=32#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/32/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 15, 2015, 10:44 a.m.">May 15, 2015, 10:44 a.m.</abbr></p>
+
+    </div>
+    <p>@John: I can see that you have used the Pack installer. The third sentence in your quote actually states that the example will <em>not</em> work with pack installer. Download the SDK 8.0.0 .zip-file from <a href="https://developer.nordicsemi.com/nRF51_SDK/nRF51_SDK_v8.x.x/">here</a>, ectract it to a folder of your own chosing and then extract the example as instructed. I know the Pack vs .zip-file is confusing and we have a lot of people struggling with the same issue. In general we recommend the .zip-file solution as this will get rid of the "file not found" errors you have. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=35#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/35/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 15, 2015, 11:01 a.m.">May 15, 2015, 11:01 a.m.</abbr></p>
+
+    </div>
+    <p>@ Shubham Kumar Mishra : The PCA10003 has an old revision 2 nRF51422 on it. As you can see in the <a href="https://www.nordicsemi.com/eng/nordic/download_resource/41917/6/78189326">Compatibility Matrix</a> this is not compatible with SDK V8.0.0 and SoftDevice S110 V8.0.0. Hence, it is not guaranteed to work with this example either. However, I did try the tutorial on my PCA10003 and it seems to work, but I haven't tested it thoroughly. Also, as a sidenote, the PCA10003 only has 16kB of RAM and you should set your IRAM1 size to 0x2000 instead of 0x6000. If this is a problem with your function <code>TICK_LED()</code> we can't help you unless you post your code. </p>
+<p><strong>PS:</strong> if your problem is related to your <a href="https://devzone.nordicsemi.com/question/37789/ble-is-not-working-on-pca10003-ek-nrf51422-based-device/">question here</a> then lets continue our problem solving there. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=36#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/36/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/4854/jialee/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="jialee" alt="jialee gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/4854/jialee/">John</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">17</span>
+        
+
+        
+        <span class="badges" title="jialee has 9 silver badges and 8 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">8</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 15, 2015, 8:30 p.m.">May 15, 2015, 8:30 p.m.</abbr></p>
+
+    </div>
+    <p>@Martin Børs-Lind  Yeah, you were right. I just moved it to SDK8.0.0 I downloaded. It seems fine now. I have almost completed this tutorial except for challenge 1. I'm still struggling with changing the transmit power level.</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=37#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/37/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 18, 2015, 12:21 p.m.">May 18, 2015, 12:21 p.m.</abbr></p>
+
+    </div>
+    <p>@John: I have answered you question in your post here: <a href="https://devzone.nordicsemi.com/question/37952/setting-tx_power_level/?answer=38038#post-id-38038">link</a>. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=40#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/40/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/8060/luca122131/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="Luca122131" alt="Luca122131 gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/8060/luca122131/">Luca122131</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">3</span>
+        
+
+        
+        <span class="badges" title="Luca122131 has 2 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">2</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 26, 2015, 5 p.m.">May 26, 2015, 5 p.m.</abbr></p>
+
+    </div>
+    <p>Can I use this example with SDK 8.1.0 ?</p>
+<p>I tried and I got a build error.</p>
+<p>Step to reproduce and find:</p>
+<ul>
+<li>Clone github files in the right place under SDK 8.1.0</li>
+<li>Open the project and build</li>
+<li>In nRF_Libraries -&gt; app_button.c I see (line 19) #include "nrf_drv_gpiote.h"</li>
+</ul>
+<p>The error is that nrf_drv_gpiote.h isn't found.</p>
+<p>I tried to import the example in the SDK 8.0.0 and all works fine; so I tried to open the app_button.c of the SDK 8.0.0 and it's different from app_button.c of the SDK 8.1.0.</p>
+<p>If app_button.c is part of the nRF_Libraries of SDK 8.1.0, and If it includes nrf_drv_gpiote.h that's part of the library too. Could be a bug or I'm doing something wrong?
+Thanks</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=43#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/43/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 27, 2015, 9:43 a.m.">May 27, 2015, 9:43 a.m.</abbr></p>
+
+    </div>
+    <p>I'm afraid that you can't use it with SDK 8.1.0. If you look at the <code>advertising_init()</code> function in main.c in SDK V8.1.0 you can see that is has some differences from V8.0.0 as well. But the example code used in the tutorial is very similar to the ble_app_template examples so with a little extra effort you can use this. You just need to take a close look at advertising_init() and ble_advertising_init() (called in advertising_init() and located in ble_advertising.c) and you should be able to recognize a lot of stuff. 
+<img src="./BLE Advertising, a beginner's tutorial_files/7a8cfe1fc9d0b36d08331a9bafceecd9" alt="image description"></p>
+<p>I say that it might be easy, but to make the tutorial compatible with SDK 8.1.0 I'll need to rewrite a lot of text and make new example code so I probably won't prioritize that. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=45#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/45/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/6376/gulizseray/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(2)" title="gulizseray" alt="gulizseray gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/6376/gulizseray/">Sarah</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">156</span>
+        
+
+        
+        <span class="badges" title="gulizseray has one gold badge, 20 silver badges and 10 bronze badges">
+            
+                <span class="badge1">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge2">●</span><span class="badgecount">20</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">10</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="May 29, 2015, 6:51 p.m.">May 29, 2015, 6:51 p.m.</abbr></p>
+
+    </div>
+    <p>Why is it that nRF Beacon Android app cannot detect the development kit after uploading this project, whereas nRF Master control app can?</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=48#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/48/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 2, 2015, 11:13 a.m.">June 2, 2015, 11:13 a.m.</abbr></p>
+
+    </div>
+    <p>Becons have a specific configuration of the adveritisng packet. The Beacon app is scanning for and shows only devices with this configuration. Take a look at the <a href="https://developer.nordicsemi.com/nRF51_SDK/nRF51_SDK_v8.x.x/doc/8.0.0/s110/html/a00061.html">ble_app_beacon example</a> in the SDK. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=49#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/49/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/929/tasketrond/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(3)" title="tasketrond" alt="tasketrond gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/929/tasketrond/">tasketrond</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">168</span>
+        
+
+        
+        <span class="badges" title="tasketrond has one silver badge and 5 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 18, 2015, 9:03 a.m.">June 18, 2015, 9:03 a.m.</abbr></p>
+
+    </div>
+    <p>Could you create the same type of tutorial for S120? </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=67#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/67/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/7610/miladn/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(4)" title="Miladn" alt="Miladn gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/7610/miladn/">Milad</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">33</span>
+        
+
+        
+        <span class="badges" title="Miladn has 9 silver badges and 5 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 18, 2015, 4:13 p.m.">June 18, 2015, 4:13 p.m.</abbr></p>
+
+    </div>
+    <p>Hello Nordic Comunity :)
+    When I change the code as instructed in the tutorial </p>
+<p><img src="./BLE Advertising, a beginner's tutorial_files/51a72769626d0f161725e8453427e049" alt="image description"> </p>
+<p>My dongle does not even detect the device. Meanwhile when I comment out the following code </p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">   </span><span class="com">// err_code = ble_advdata_set(&amp;p_advdata, NULL);</span><span class="pln">
+  </span><span class="com">//  APP_ERROR_CHECK(err_code);// Check for errors</span></code></pre>
+<p>My device becomes detected yet on the advertise data of MCP nothing shows up. Why is this happening and What is the purpose of this challange ?</p>
+<p>Thank You,
+Milad</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=68#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/68/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 18, 2015, 6:14 p.m.">June 18, 2015, 6:14 p.m.</abbr></p>
+
+    </div>
+    <p>Hi Milad. Could it be that you advertising packet is already full? Remember that you can only have 31 bytes in the packet in total. Have a look at <a href="https://devzone.nordicsemi.com/question/37952/setting-tx_power_level/?answer=38038#post-id-38038">this explanation</a> and see if that helps. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=70#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/70/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/7610/miladn/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(4)" title="Miladn" alt="Miladn gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/7610/miladn/">Milad</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">33</span>
+        
+
+        
+        <span class="badges" title="Miladn has 9 silver badges and 5 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 18, 2015, 8:54 p.m.">June 18, 2015, 8:54 p.m.</abbr></p>
+
+    </div>
+    <p>Hey Martin, I am only sending an integer value. </p>
+<pre class="prettyprint prettyprinted"><code><span class="pln">power</span><span class="pun">=</span><span class="lit">0x3A</span><span class="pun">;</span><span class="pln">
+advdata</span><span class="pun">.</span><span class="pln">p_tx_power_level</span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">power</span><span class="pun">;</span></code></pre>
+<p>I do not think that this would be a problem. What other issues might be the reason? Thanks </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=71#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/71/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/7610/miladn/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource(4)" title="Miladn" alt="Miladn gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/7610/miladn/">Milad</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">33</span>
+        
+
+        
+        <span class="badges" title="Miladn has 9 silver badges and 5 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 18, 2015, 9:54 p.m.">June 18, 2015, 9:54 p.m.</abbr></p>
+
+    </div>
+    <p>Meanwhile where is the continuation to this tutorial and as for the GATT communication ? </p>
+<p>Thanks</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=72#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/72/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 19, 2015, 9:50 a.m.">June 19, 2015, 9:50 a.m.</abbr></p>
+
+    </div>
+    <p>Do you have control over how many bytes you have in your packet? Adding the tx power level value will actually add 3 more bytes, not just the value; a length byte, a type byte and the tx power level byte. Can you post your .c-file? You can't attach files in the tutorial comment sections, so maybe you can post it in the thread I linked to above or send it to me on PM.</p>
+<p>The next tutorial is still a work in progress. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=73#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/73/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/6178/hsa/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="hsa" alt="hsa gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/6178/hsa/">HSA</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">5</span>
+        
+
+        
+        <span class="badges" title="hsa has 9 silver badges and 5 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="June 25, 2015, 6:47 a.m.">June 25, 2015, 6:47 a.m.</abbr></p>
+
+    </div>
+    <p>Hi~
+Thansks for this post. I tried to implement the challanges but I am unable to implement the challange regarding "scan data response" for advertising data more than 31 bytes.</p>
+<p>Please share some code example for reference related to modifications in advertising_init().</p>
+<p>Thanks.
+/Ash</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=77#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/77/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/5794/jthie/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="jthie" alt="jthie gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/5794/jthie/">Johnson</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">28</span>
+        
+
+        
+        <span class="badges" title="jthie has one gold badge, 9 silver badges and 7 bronze badges">
+            
+                <span class="badge1">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge2">●</span><span class="badgecount">9</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">7</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="July 19, 2015, 4 p.m.">July 19, 2015, 4 p.m.</abbr></p>
+
+    </div>
+    <p>@martinbl :Thank you for the tutorial. It is very helpful!</p>
+<p>I have a question on writing the ADC value to the manufacturer specific data. It looks like this data is only written to the packet during the advertising initialisation. </p>
+<p>How do I read from the ADC (e.g. AIN2 in P0.01) and broadcast the ADC value in the advertising packet?</p>
+<p>I have tried out the adc_simple example code as it was (without S100). Can I use the same ADC code in this tutorial code?</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=83#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/83/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/10120/kuchims1/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="kuchims1" alt="kuchims1 gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/10120/kuchims1/">harsha</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">1</span>
+        
+
+        
+        <span class="badges" title="kuchims1 has one bronze badge">
+            
+            
+            
+                <span class="badge3">●</span><span class="badgecount">1</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Aug. 26, 2015, 6:55 p.m.">Aug. 26, 2015, 6:55 p.m.</abbr></p>
+
+    </div>
+    <p>i amusing SDK 6.0 since i am using nRF51822 EK. Is this tutorial still valid for me? </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=96#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/96/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Sept. 1, 2015, 2:51 p.m.">Sept. 1, 2015, 2:51 p.m.</abbr></p>
+
+    </div>
+    <p>Sorry for the late response guys. Holidays and busy days in general...</p>
+<p>@HSA: Did you try to copy paste the code at the bottom of the tutorial to get scan response working? Are you getting any errors returned from ble_advdata_set()?</p>
+<p>@Johnson: Yes, you should be able to use the adc example code alongside the tutorial. To put adc values in your advertising packet you will have to update the manufacturer data and run advdata_set() once more to actually change det packet. </p>
+<p>@harsha: Not directly I'm afraid, but with some work you should be able to port it. </p>
+<p><strong>I will encourage you all to ask your questions on the forum's main page and not here in the tutorial comment field. That way it will be easier for all users and Nordic employees to see and search for your post. You will probably also get an answer faster that way.</strong> Tips and comments about the tutorial are welcome here. You can also send me a PM. </p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=98#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/98/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/10467/prabhudurai/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="prabhudurai" alt="prabhudurai gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/10467/prabhudurai/">prabhudurai</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">3</span>
+        
+
+        
+        <span class="badges" title="prabhudurai has one gold badge, 13 silver badges and 5 bronze badges">
+            
+                <span class="badge1">●</span><span class="badgecount">1</span>
+            
+            
+                <span class="badge2">●</span><span class="badgecount">13</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">5</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Sept. 16, 2015, 10:39 a.m.">Sept. 16, 2015, 10:39 a.m.</abbr></p>
+
+    </div>
+    <pre class="prettyprint prettyprinted"><code><span class="typ">int8_t</span><span class="pln"> </span><span class="pun">*</span><span class="pln">       tx_power_level</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Variable to hold manufacturer specific data</span><span class="pln">
+</span><span class="typ">uint8_t</span><span class="pln"> data</span><span class="pun">[]</span><span class="pln">                      </span><span class="pun">=</span><span class="pln"> </span><span class="str">"4DBM"</span><span class="pun">;</span><span class="pln">
+tx_power_level</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">p_data              </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">;</span><span class="pln"> 
+tx_power_level</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">size             </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">data</span><span class="pun">);</span><span class="pln">     
+advdata</span><span class="pun">.</span><span class="pln">p_tx_power_level   </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">tx_power_level</span><span class="pun">;</span></code></pre>
+<p>i added this line for challenge on ebut it shows me error can anyonbe guide how to solve this issue? in order to tranmit the power?</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=103#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/103/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Sept. 16, 2015, 1:41 p.m.">Sept. 16, 2015, 1:41 p.m.</abbr></p>
+
+    </div>
+    <p>Remove the star (*). You should not declare a pointer. And remember to assign a value to tx_power_level.
+Try this:</p>
+<pre class="prettyprint prettyprinted"><code><span class="typ">int8_t</span><span class="pln"> tx_power_level </span><span class="pun">=</span><span class="pln"> </span><span class="lit">4</span><span class="pun">;</span><span class="pln">
+advdata</span><span class="pun">.</span><span class="pln">p_tx_power_level </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">tx_power_level</span><span class="pun">;</span></code></pre>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=104#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/104/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/5407/selim/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="selim" alt="selim gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/5407/selim/">selim</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">1</span>
+        
+
+        
+        <span class="badges" title="selim has one silver badge">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">1</span>
+            
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Oct. 9, 2015, 4:50 p.m.">Oct. 9, 2015, 4:50 p.m.</abbr></p>
+
+    </div>
+    <p>Hello,</p>
+<p>So, a regular advertisement is done continuously while the the scan response is only sent when there is a request from a central.</p>
+<p>Then, is it more power efficient to put the data in the scan response or in the regular advertisement?
+Are there any other criteria we have to consider when deciding which attribute to place where?
+Thanks</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=115#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/115/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card ">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2458/andrelongo85/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/nophoto.png" title="andrelongo85" alt="andrelongo85 gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2458/andrelongo85/">Andrea</a>
+
+        <br>
+        
+        
+        
+
+        
+        <span class="reputation-score">3</span>
+        
+
+        
+        <span class="badges" title="andrelongo85 has 3 silver badges and 2 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">3</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">2</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Nov. 3, 2015, 9:51 a.m.">Nov. 3, 2015, 9:51 a.m.</abbr></p>
+
+    </div>
+    <p>Hi There,
+I have an nRF52 DK, is there a way to run this tutorial on it?
+Thanks!</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=130#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/130/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="comment clearfix">
+    <div class="comment-meta">
+        
+
+<div class="user-card group-nordic-employees">
+    <a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+        <span class="reputation-score">2393</span>
+        
+
+        
+        <span class="badges" title="MartinBL has 4 silver badges and 3 bronze badges">
+            
+            
+                <span class="badge2">●</span><span class="badgecount">4</span>
+            
+            
+                <span class="badge3">●</span><span class="badgecount">3</span>
+            
+        </span>
+        
+    </div>
+</div>
+<p>Posted <abbr class="timeago" title="Feb. 10, 2016, 9:03 a.m.">Feb. 10, 2016, 9:03 a.m.</abbr></p>
+
+    </div>
+    <p>As of yesterday it is :)</p>
+
+
+    
+    <div class="comment-actions">
+        <ul>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/?comment_id=212#comment-form">edit</a></li>
+            <li><a href="https://devzone.nordicsemi.com/tutorials/5/comment/212/delete/">delete</a></li>
+        </ul>
+    </div>
+    
+</div>
+
+
+</div>
+
+<div class="addcomment">
+
+    
+    <a name="comment-form">
+    <form action="https://devzone.nordicsemi.com/tutorials/5/ble-advertising-a-beginners-tutorial/" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="WtQafUBV9z70BMskwBCEwSEGbuaptGzi">
+        <input id="id_comment_id" name="comment_id" type="hidden">
+        <div class="folded-editor unfolded">
+            <div class="editor-proper">
+                <div class="wmd-container">
+                    <div id="wmd-button-bar" class="wmd-button-bar"><ul class="wmd-button-row" id="wmd-button-row"><li class="wmd-button wmd-bold-button" id="wmd-bold-button" title="bold &lt;strong&gt; Ctrl-B" style="background-position: 0px 0px;"></li><li class="wmd-button wmd-italic-button" id="wmd-italic-button" title="italic &lt;em&gt; Ctrl-I" style="background-position: -20px 0px;"></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button wmd-link-button" id="wmd-link-button" title="link &lt;a&gt; Ctrl-L" style="background-position: -40px 0px;"></li><li class="wmd-button wmd-quote-button" id="wmd-quote-button" title="quote &lt;blockquote&gt; Ctrl-." style="background-position: -60px 0px;"></li><li class="wmd-button wmd-code-button" id="wmd-code-button" title="preformatted text &lt;pre&gt;&lt;code&gt; Ctrl-K" style="background-position: -80px 0px;"></li><li class="wmd-button wmd-image-button" id="wmd-image-button" title="image &lt;img&gt; Ctrl-G" style="background-position: -100px 0px;"></li><li class="wmd-button wmd-attachment-button" id="wmd-attachment-button" title="attachment Ctrl-F" style="background-position: -120px 0px;"></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2"></li><li class="wmd-button wmd-olist-button" id="wmd-olist-button" title="numbered list &lt;ol&gt; Ctrl-O" style="background-position: -140px 0px;"></li><li class="wmd-button wmd-ulist-button" id="wmd-ulist-button" title="bulleted list &lt;ul&gt; Ctrl-U" style="background-position: -160px 0px;"></li><li class="wmd-button wmd-heading-button" id="wmd-heading-button" title="heading &lt;h1&gt;/&lt;h2&gt; Ctrl-H" style="background-position: -180px 0px;"></li><li class="wmd-button wmd-hr-button" id="wmd-hr-button" title="horizontal bar &lt;hr&gt; Ctrl-R" style="background-position: -200px 0px;"></li></ul></div>
+                    <textarea id="editor" name="text"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-toggle">
+            <span id="pre-collapse" title="Toggle the real time Markdown editor preview">[hide preview]</span>
+        </div>
+        <div class="clearfix"></div>
+        <div id="previewer" class="wmd-preview"></div>
+
+        <input type="submit" value="Add comment">
+    </form>
+    
+</a></div><a name="comment-form">
+
+</a></div><a name="comment-form">
+</a><div id="ContentRight"><a name="comment-form">
+    
+    
+</a><div id="common-sidebar"><a name="comment-form">
+</a><div id="user-menu" class="box"><a name="comment-form">
+	
+    <h2>User menu</h2>
+    </a><ul><a name="comment-form">
+    
+        </a><li><a name="comment-form">
+            
+
+</a><div class="user-card group-nordic-employees"><a name="comment-form">
+    </a><a class="avatar-box" href="https://devzone.nordicsemi.com/users/2056/martinbl/"><img class="gravatar" width="32" height="32" src="./BLE Advertising, a beginner's tutorial_files/saved_resource" title="MartinBL" alt="MartinBL gravatar image"></a>
+    <div class="user-info">
+        <a href="https://devzone.nordicsemi.com/users/2056/martinbl/">Martin Børs-Lind</a>
+
+        <br>
+        
+            Nordic employee<br>
+        
+        
+        
+
+        
+
+        
+    </div>
+</div>
+        </li>
+        <li><a href="https://devzone.nordicsemi.com/messages/threads/">Private messages</a></li>
+        <li><a href="https://devzone.nordicsemi.com/blogs/drafts/">Draft blog posts</a></li>
+        <li><a href="https://devzone.nordicsemi.com/account/signout/?next=/account/logout/">Log out</a></li>
+    
+    </ul>
+    <a href="http://www.nordicsemi.com/eng/About-us/Career"><img src="./BLE Advertising, a beginner's tutorial_files/DevZone_Hiring_2015.png"></a>
+</div>
+<div class="box" id="recent-blog-posts">
+    <h2>Recent blog posts</h2>
+    <ul>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/blogs/845/segger-embedded-studio-cross-platform-ide-w-no-cod/">Segger Embedded Studio - Cross Platform IDE w/ no Code Limit! (Mac OS X, Linux support) -- Revised</a></h3>
+            <span class="blog-meta">Posted <abbr class="timeago" title="2016-02-04 12:51:53">Feb 4 '16</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/3582/mjdietz2/">Michael Dietz</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/blogs/844/ble-to-sb-quadcopter-bridge/">BLE-to-SB quadcopter bridge</a></h3>
+            <span class="blog-meta">Posted <abbr class="timeago" title="2016-02-04 05:09:41">Feb 4 '16</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/3190/foolsday/">Daniel Veilleux</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/blogs/841/bluetooth-smart-and-the-nordics-softdevice-part-2-/">Bluetooth Smart and the Nordic's Softdevice - Part 2  Connection</a></h3>
+            <span class="blog-meta">Posted <abbr class="timeago" title="2016-02-01 16:21:31">Feb 1 '16</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/598/hungbui/">Hung Bui</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/blogs/840/nrfjprog-pynrfjprog-intro-mac-os-x-linux-now-suppo/">nrfjprog, pynrfjprog - Intro, Mac OS X &amp; Linux now supported, New Feature</a></h3>
+            <span class="blog-meta">Posted <abbr class="timeago" title="2016-02-01 14:23:44">Feb 1 '16</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/3582/mjdietz2/">Michael Dietz</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/blogs/838/weird-issue-with-pyserial-flow-control/">Weird issue with pyserial flow control</a></h3>
+            <span class="blog-meta">Posted <abbr class="timeago" title="2016-01-29 16:47:22">Jan 29 '16</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/1644/eirikm/">Eirik Midttun</a></span></li>
+    
+    </ul>
+</div>
+<div class="box" id="recent-questions">
+    <h2>Recent questions</h2>
+    <ul>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/question/67672/nrf52832-gpio-with-pullup-current/">nrf52832 gpio with pullup current</a></h3>
+            <span class="question-meta">Posted <abbr class="timeago" title="2016-02-11 10:25:48">2 hours ago</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/7514/yaronapel/">yaron</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/question/67659/nrf52-preview-dk-rf-connector/">nRF52 Preview DK RF Connector</a></h3>
+            <span class="question-meta">Posted <abbr class="timeago" title="2016-02-11 09:16:25">3 hours ago</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/2981/xmlsdk/">XMLSDK</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/question/67652/nrf51822-ble-example-app-doesnt-work/">nRF51822 BLE example app doesn't work</a></h3>
+            <span class="question-meta">Posted <abbr class="timeago" title="2016-02-11 08:09:57">4 hours ago</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/16718/marchalloakbow/">Marchall</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/question/67640/4-channel-pwm-from-nrf5182-qfaag0/">4 channel pwm from nrf5182 qfaag0</a></h3>
+            <span class="question-meta">Posted <abbr class="timeago" title="2016-02-11 06:31:02">6 hours ago</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/10393/mukeshks/">mukesh</a></span></li>
+    
+        <li><h3><a href="https://devzone.nordicsemi.com/question/67638/i2c-pn532-problem-clock-stretching/">I2C PN532 Problem (Clock Stretching?)</a></h3>
+            <span class="question-meta">Posted <abbr class="timeago" title="2016-02-11 03:55:16">8 hours ago</abbr> by
+                <a href="https://devzone.nordicsemi.com/users/16702/shayo/">Shay Ohayon</a></span></li>
+    
+    </ul>
+</div>
+</div>
+
+    
+
+<div class="box">
+    <h2>Your tutorial drafts</h2>
+    
+    <h3><a href="https://devzone.nordicsemi.com/tutorials/17/ble-characteristics-a-beginners-tutorial/">BLE Characteristics, a beginner's tutorial</a></h3>
+    
+    <h3><a href="https://devzone.nordicsemi.com/tutorials/31/ble-services-a-beginners-tutorial/">BLE Services, a beginner's tutorial</a></h3>
+    
+</div>
+
+
+<div class="box">
+    <h2>Related posts by tag</h2>
+    
+    <div class="related">
+        <h3><a href="https://devzone.nordicsemi.com/tutorials/14/radio-notification/">Radio Notification</a></h3>
+        <div class="userinfo">
+    <time class="timeago" title="June 17, 2015, 3:25 p.m.">Posted June 17th 2015</time> by
+    <a href="https://devzone.nordicsemi.com/users/7167/oyvkar/">Øyvind Karlsen</a>
+</div>
+
+    </div>
+    
+    <div class="related">
+        <h3><a href="https://devzone.nordicsemi.com/tutorials/15/implementing-the-device-manager/">Implementing the device manager</a></h3>
+        <div class="userinfo">
+    <time class="timeago" title="July 7, 2015, 3:34 p.m.">Posted July 7th 2015</time> by
+    <a href="https://devzone.nordicsemi.com/users/7167/oyvkar/">Øyvind Karlsen</a>
+</div>
+
+    </div>
+    
+</div>
+
+</div>
+
+        </div>
+        <!-- template footer.html -->
+<div id="ground">
+    <div class="content-wrapper">
+        
+        <div class="footer-links">
+            <a href="https://devzone.nordicsemi.com/faq/">faq</a><span class="link-separator"> |</span>
+            <a href="https://devzone.nordicsemi.com/terms">terms and conditions</a><span class="link-separator"> |</span>
+            <a href="https://devzone.nordicsemi.com/feedback/?next=/tutorials/5/">
+                        
+                        give feedback
+                    </a>
+        </div>
+        <div class="powered-link">
+            <p>Follow Nordic on:</p>
+            <ul class="clearfix">
+                <li><a href="https://www.facebook.com/nordicsemiconductor"><img src="./BLE Advertising, a beginner's tutorial_files/facebook.png"></a></li>
+                <li><a href="https://twitter.com/NordicTweets"><img src="./BLE Advertising, a beginner's tutorial_files/twitter.png"></a></li>
+                <li><a href="http://www.linkedin.com/company/nordic-semiconductor-asa"><img src="./BLE Advertising, a beginner's tutorial_files/linkedin.png"></a></li>
+                <li><a href="http://www.youtube.com/user/NordicSemi"><img src="./BLE Advertising, a beginner's tutorial_files/youtube.png"></a></li>
+            </ul>
+        </div>
+        <div class="clean"></div>
+    </div>
+</div>
+<!-- end template footer.html -->
+        
+
+        
+<script src="./BLE Advertising, a beginner's tutorial_files/saved_resource(5)"></script>
+<script src="./BLE Advertising, a beginner's tutorial_files/jquery-1.7.2.min.js"></script>
+<script src="./BLE Advertising, a beginner's tutorial_files/prettify.js"></script>
+<script src="./BLE Advertising, a beginner's tutorial_files/tutorials.js"></script>
+
+<script type="text/javascript">
+    var askbot = {};
+    askbot['data'] = {};
+    askbot['data']['userIsAuthenticated'] = true;
+    askbot['data']['languageCode'] = 'en';
+    
+        askbot['data']['userId'] = 2056;
+        askbot['data']['userName'] = 'MartinBL';
+        askbot['data']['userIsAdminOrMod'] = true;
+        askbot['data']['userIsAdmin'] = false;
+        askbot['data']['userReputation'] = 2393;
+        askbot['data']['userIsReadOnly'] = false;
+    
+    askbot['urls'] = {};
+    askbot['settings'] = {};
+    askbot['messages'] = {};
+
+    askbot['urls']['get_tags_by_wildcard'] = '/get-tags-by-wildcard/';
+    askbot['urls']['get_tag_list'] = '/get-tag-list/';
+    askbot['urls']['follow_user'] = '/followit/follow/user//';
+    askbot['urls']['unfollow_user'] = '/followit/unfollow/user//';
+    askbot['urls']['user_signin'] = '/account/signin/';
+    askbot['urls']['getEditor'] = '/get-editor/';
+    askbot['urls']['apiGetQuestions'] = '/api/get_questions/';
+    askbot['urls']['ask'] = '/questions/ask/';
+    askbot['urls']['questions'] = '/questions/';
+    askbot['settings']['static_url'] = '/static/';
+    askbot['settings']['groupsEnabled'] = false;
+    askbot['settings']['mathjaxEnabled'] = false;
+    askbot['settings']['editorType'] = 'markdown';
+    askbot['settings']['commentsEditorType'] = 'plain-text';
+    askbot['settings']['allowedUploadFileTypes'] = ['*'];
+</script>
+
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/bootstrap.js"></script>
+<!-- History.js -->
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/jquery.history.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/utils.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/live_search.js"></script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    $(document).ready(function(){
+        // focus input on the search bar endcomment
+
+        if (askbot['data']['userIsAdminOrMod']) {
+            $('body').addClass('admin');
+        }
+        if (askbot['settings']['groupsEnabled']) {
+            askbot['urls']['add_group'] = "/add-group/";
+            var group_dropdown = new GroupDropdown();
+            $('.dropdown').append(group_dropdown.getElement());
+        }
+        var userRep = $('#userToolsNav .reputation');
+        if (userRep.length) {
+            var showPermsTrigger = new ShowPermsTrigger();
+            showPermsTrigger.decorate(userRep);
+        }
+    });
+    $('abbr.timeago').timeago();
+    /*]]>*/
+</script>
+<script type="text/javascript">
+    
+    askbot['settings']['tagsAreRequired'] = false
+    askbot['settings']['maxTagLength'] = 30;
+    askbot['messages']['maxTagLength'] = "each tag must be shorter than 30 characters";
+    askbot['settings']['maxTagsPerPost'] = 10;
+    askbot['messages']['maxTagsPerPost'] = "please use 10 tags or less";
+    askbot['messages']['tagLimits'] = "please use up to 10 tags, less than 30 characters each";
+    askbot['urls']['upload'] = '/upload/';
+    askbot['settings']['minTitleLength'] = 10;
+    askbot['settings']['minQuestionBodyLength'] = 10;
+    askbot['settings']['minAnswerBodyLength'] = 10;
+    askbot['settings']['minCommentBodyLength'] = 10;
+    askbot['settings']['tag_editor'] = '';
+    askbot['settings']['tinyMCEPlugins'] = JSON.parse('[]');
+</script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/editor.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/jquery.validate.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/post.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/Markdown.Converter.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/Markdown.Sanitizer.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/askbot_converter.js"></script>
+<script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/wmd.js"></script>
+<script type="text/javascript">
+    var codeFriendlyMarkdown = true;
+
+    $().ready(function(){
+        $('#id_text').TextAreaResizer();
+        $('#id_text').typeWatch({highlight: false, wait: 3000,
+                         captureLength: 5, callback: lanai.highlightSyntax});
+
+        var display = true;
+        var txt = "[hide preview]";
+        $('#pre-collapse').text(txt);
+        $('#pre-collapse').bind('click', function(){
+            txt = display ? "[show preview]" : "[hide preview]";
+            display = !display;
+            $('#previewer').toggle();
+            $('#pre-collapse').text(txt);
+        });
+        //Tags autocomplete
+
+        var tagAc = new AutoCompleter({
+                url: '/get-tag-list/',
+                minChars: 1,
+                useCache: true,
+                matchInside: true,
+                maxCacheLength: 100,
+                delay: 10
+        });
+        tagAc.decorate($("#id_tags"));
+
+        lanai.highlightSyntax();
+    });
+</script>
+
+
+        <script src="./BLE Advertising, a beginner's tutorial_files/saved_resource(5)"></script>
+        <script type="text/javascript" src="./BLE Advertising, a beginner's tutorial_files/utils(1).js"></script>
+        <script type="text/javascript">
+        $("abbr.timeago").timeago();
+        </script>
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-69304823-1', 'devzone.nordicsemi.com');
+  ga('send', 'pageview');
+
+</script>
+        <!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+    g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>&lt;p&gt;&lt;img src="/piwik/piwik.php?idsite=1" style="border:0;" alt="" /&gt;&lt;/p&gt;</noscript>
+<!-- End Piwik Code -->
+    
+
+<div class="acResults" style="display: none; position: absolute;"></div></body></html>

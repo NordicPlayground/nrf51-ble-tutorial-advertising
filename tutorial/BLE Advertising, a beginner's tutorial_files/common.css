@@ -1,0 +1,88 @@
+#cmsheader .content-wrapper { 
+    background: url("/static/img/nordic.png") 100% 100% no-repeat transparent;
+}
+#ground ul {
+    list-style: none;
+}
+#ground li {
+    display: inline-block;
+    float: right;
+    margin-left: 5px;
+}
+.user-card {
+    font-size: 13px;
+}
+
+.group-nordic-employees .avatar-box {
+    background-color: #009CDE;
+    border: 1px solid #009CDE;
+}
+
+#secondaryHeader .button {
+    float: right;
+    width: 200px;
+    font-size: 20px;
+    height: 40px !important;
+    line-height: 44px;
+    margin: 0 0 0 25px;
+    padding: 0px !important;
+    text-transform: uppercase;
+}
+
+#ContentRight h2 {
+    margin-top: 10px;
+}
+
+#common-sidebar input[type="text"], #common-sidebar input[type="password"] {
+    width: 180px;
+}
+#common-sidebar label {
+    font-size: 0.8em;
+}
+#common-sidebar li {
+    list-style: none;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#common-sidebar ul {
+    margin-left: 0;
+}
+
+#common-sidebar .user-card, 
+#common-sidebar .user-card * {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+}
+
+#common-sidebar .user-card {
+    width: 100%;
+}
+
+#recent-questions h3, #recent-blog-posts h3 {
+    line-height: 18px;
+}
+
+#common-sidebar #user-menu li {
+    margin: 5px 0;
+}
+
+@media screen and (max-width: 700px) {
+    #logo {
+        width: 80%;
+    }
+
+    #cmsheader .content-wrapper { 
+        background: none;
+    }
+
+    #menu {
+        font-size: 12px !important;
+    }
+
+    ul.linkmenu {
+        display: none;
+    }
+}

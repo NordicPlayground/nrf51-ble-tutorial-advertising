@@ -1,0 +1,64 @@
+/* ----- Custom positions ----- */
+#cmsheader {
+    background-color: #626366;
+    padding: 15px 0;
+}
+
+#menu, #ground {
+    background-color: #f1f1f2;
+}
+#menu {
+    padding: 10px 0;
+    font-size: 16px;
+}
+#menu ul {
+  list-style: none;
+  margin: 0 0 0 10px;
+}
+#menu li, #menu a, #ground a {
+  display: inline-block;
+}
+#menu li:after {
+    content: "|";
+    margin: 0px 10px;
+    text-align: center;
+}
+#menu ul li:last-child:after {
+    display: none;
+}
+.cmsmenu {
+    display: inline;
+}
+.linkmenu {
+    float: right;
+}
+.page.content {
+  padding: 1.4rem 0;
+}
+.page.content h1,
+.page.content h2,
+.page.content h3,
+.page.content h4,
+.page.content h5,
+.page.content h6 {
+  margin: 0 0 .75rem;
+}
+.page.content p,
+.page.content ul,
+.page.content ol {
+  font-size: 16px;
+  line-height: 1.4;
+}
+.page.content p {
+  margin: 0 0 1.4rem;
+}
+.page.content ul,
+.page.content ol {
+  margin: 0 0 1.4rem 1.4rem;
+}
+.sidebar {
+  float: right;
+  padding: 1rem;
+  width: 15rem;
+}
+

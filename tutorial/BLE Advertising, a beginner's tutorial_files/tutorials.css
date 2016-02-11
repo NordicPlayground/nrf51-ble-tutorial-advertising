@@ -1,0 +1,294 @@
+/*
+    Based on 12 col responsive.gs by Denis Leblanc
+    Licensed under GPL & MIT
+*/
+.three,
+.four,
+.six,
+.eight,
+.nine,
+.twelve,
+.row {
+    box-sizing: border-box
+}
+.row:after,
+.columns:after,
+.clear:after,
+.group:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.columns {
+    display: block;
+    float: left;
+    width: 100%;
+}
+.columns:first-child {
+    margin-left: 0;
+}
+@media(min-width: 801px) {
+    .columns {
+        margin-left: 3%
+    }
+    .three {
+        width: 22.5%
+    }
+    .four {
+        width: 31.5%
+    }
+    .six {
+        width: 48.5%
+    }
+    .eight {
+        width: 65.5%
+    }
+    .nine {
+        width: 74%
+    }
+    .twelve {
+        width: 100%
+    }
+}
+@media(min-width: 641px){
+    .six.columns {
+        margin-left: 3%;
+        width: 48.5%;
+    }
+    .columns:first-child{
+        margin-left: 0;
+    }
+}
+
+#header {
+    height: 40px;
+}
+
+#metaNav #navUsers {
+    background: url(../images/user-icon.png) no-repeat;
+}
+
+h1.tutorial-heading {
+    font-size: 30px;
+    line-height: 36px;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+h1.index-heading {
+    font-size: 20px;
+    padding: 0;
+    margin: .5em 0;
+}
+
+#tutorials form input[type=text],
+#tutorials form textarea {
+    display: block;
+    box-sizing: border-box;
+}
+
+#tutorials form input[type=text] {
+    height: 32px;
+    padding: 6px;
+    width: 100%;
+}
+
+#tutorials .wmd-container textarea {
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+    display: block;
+    font-size: 100%;
+    min-height: 210px;
+    line-height: 18px;
+    margin: 0;
+    border: 0;
+}
+
+.wmd-container,
+.editor-proper {
+    box-sizing: border-box;
+    height: auto;
+    padding: 0;
+}
+
+.folded-editor {
+    padding: 0;
+}
+
+#editor {
+    width: 100%;
+    resize-y: none;
+}
+
+#preamble-editor {
+    width: 100%;
+    resize-y: none;
+}
+
+ul.wmd-button-row {
+    margin: 5px 2px !important;
+}
+
+.preview-toggle {
+    margin-top: 1em;
+}
+
+.tutorial img {
+    max-width: 100%;
+}
+
+ul.tagindex {
+    margin-top: 2em;
+}
+
+ul.tagindex li {
+    width: 235px;
+    margin: 0 .5em .5em 0;
+}
+
+.short-summary {
+    float: none;
+}
+
+.users.short-summary div {
+    margin: .25em 0 0;
+}
+
+.count-box {
+    background: #eee;
+    float: right;
+    padding: 8px 2px 0 2px;
+    margin: 0 0 .5em;
+    text-align: center;
+    height: 50px;
+    width: 60px;
+}
+
+.userinfo {
+    float: right;
+    clear: both;
+    font-size: 12px;
+}
+
+.user-card {
+    margin-left: 1em;
+}
+
+.user-card time {
+    display: block;
+}
+
+.gravatar {
+    width: 32px;
+    height: 32px;
+}
+
+.tutorial.page.content {
+    padding: 0;
+    clear: both;
+    border-bottom: 1px solid #e6ecee;
+}
+
+.tutorial.page.content a {
+    color: #1b79bd;
+}
+
+pre.prettyprint {
+    border-radius: 3px;
+    font-family: Menlo, Monaco, 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 1.4rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.actions a {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.comment {
+    clear: right;
+    margin: 1em 0;
+    padding: 1em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.comment .comment-meta, .tutorial-author {
+    text-align: right;
+}
+
+.comment .user-card {
+    text-align: left;
+    font-size: 0.8em;
+}
+
+.addcomment {
+    margin: 1em 0;
+    padding: 0 0 1em;
+}
+
+.comment .avatar-box,
+.comment .gravatar {
+    width: 24px;
+    height: 24px;
+}
+
+.comment-text {
+    width: 100%;
+    height: 5em;
+    margin: 0 0 1em;
+}
+
+div.comment-actions {
+    clear: both;
+    float: right;
+}
+
+div.comment-actions ul {
+    list-style: none;
+}
+
+div.comment-actions li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+
+.box {
+    border-radius: initial !important;
+    padding: 0;
+}
+
+.box h2 {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.related {
+    font-size: 75%;
+    margin-top: .5em;
+    padding: 0 0 .5em;
+    border-bottom: 1px solid #ccc;
+}
+
+.group:after {
+    display: table;
+    clear: both;
+    content: '';
+}
+
+.tutorial-author, .read-more, .actions, .comments .comment-meta {
+    float: right;
+    clear: right;
+}
+
+.tutorial-author .user-card {
+    height: auto;
+    text-align: left;
+}
