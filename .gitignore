@@ -1,4 +1,5 @@
 _build/
+RTE/
 arm4/
 iar/
 *.*
@@ -10,8 +11,10 @@ iar/
 !*.uvoptx
 !*.uvprojx
 !*.s
+!*.ld
 !*.hex
 JLinkLog.txt
 !hex/*
+tutorial_draft/
 !tutorial/*
 !tutorial/*/*
