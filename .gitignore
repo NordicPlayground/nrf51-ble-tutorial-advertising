@@ -1,6 +1,5 @@
 _build/
 arm4/
-armgcc/
 iar/
 *.*
 !*.txt
@@ -16,4 +15,3 @@ JLinkLog.txt
 !hex/*
 !tutorial/*
 !tutorial/*/*
-!SDK11.0.0
