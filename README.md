@@ -1,4 +1,6 @@
-# nrf51-ble-tutorial-advertising
+# nrf5-ble-tutorial-advertising
+This branch is currently under maintance and will eventually support SDK15!!
+
 This example is meant to be used togheter with the tutorial "A beginner's tutorial: Advertising" that is included as a PDF on the repository. The purpose of the tutorial is to get you started with the basics of the nRF51x22 and Bluetooth Low Energy (BLE). The tutorial is fairly superficial and is meant to be a hands-on introduction to BLE advertising and broadcasting of a limited payload. Hopefully after going through these steps you will be able to set up a BLE link, advertise your intentions and send your first bytes of data over the air. 
 
 Change Log 2016.03.14: Updated tutorial to suit SDK V11.0.0 and the possibility to use both nRF51 and nRF52 kits. 
