@@ -82,8 +82,7 @@
 #include "nrf_log_default_backends.h"
 
 
-#define DEVICE_NAME                     "HelloWorld"                            /**< Name of device. Will be included in the advertising data. */
-#define MANUFACTURER_NAME               "NordicSemiconductor"                   /**< Manufacturer. Will be passed to Device Information Service. */
+#define DEVICE_NAME                     "ThisisAreallylongName "                       /**< Name of device. Will be included in the advertising data. */
 #define APP_ADV_INTERVAL                300                                     /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 
 #define APP_ADV_DURATION                18000                                   /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
@@ -241,6 +240,17 @@ static void pm_evt_handler(pm_evt_t const * p_evt)
 }
 
 
+/**@brief Function for the Timer initialization.
+ *
+ * @details Initializes the timer module. This creates and starts application timers.
+ */
+static void timers_init(void)
+{
+    // Initialize timer module.
+    ret_code_t err_code = app_timer_init();
+    APP_ERROR_CHECK(err_code);
+}
+
 
 /**@brief Function for the GAP initialization.
  *
@@ -259,10 +269,9 @@ static void gap_params_init(void)
                                           (const uint8_t *)DEVICE_NAME,
                                           strlen(DEVICE_NAME));
     APP_ERROR_CHECK(err_code);
-    
-      //Set the HID LOGO 
-     //err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_HID_MOUSE);
-     //APP_ERROR_CHECK(err_code); 
+
+       err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_HID_MOUSE);
+       APP_ERROR_CHECK(err_code); 
 
     memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
@@ -273,19 +282,6 @@ static void gap_params_init(void)
 
     err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
     APP_ERROR_CHECK(err_code);
-
-
-//Changing the address so that it varies/////////////////////////////////////////////////////////////////////////
-   /* ble_gap_privacy_params_t prvt_conf;
-    memset(&prvt_conf, 0, sizeof(prvt_conf));
-    prvt_conf.privacy_mode = BLE_GAP_PRIVACY_MODE_DEVICE_PRIVACY;
-    prvt_conf.private_addr_type = BLE_GAP_ADDR_TYPE_RANDOM_PRIVATE_RESOLVABLE ;
-    prvt_conf.private_addr_cycle_s = 0;
-    err_code = sd_ble_gap_privacy_set(&prvt_conf);
-    APP_ERROR_CHECK(err_code);*/
-
-
-
 
 }
 
@@ -325,6 +321,7 @@ static void services_init(void)
 
     err_code = nrf_ble_qwr_init(&m_qwr, &qwr_init);
     APP_ERROR_CHECK(err_code);
+
 }
 
 
@@ -381,7 +378,6 @@ static void conn_params_init(void)
     err_code = ble_conn_params_init(&cp_init);
     APP_ERROR_CHECK(err_code);
 }
-
 
 
 
@@ -615,7 +611,7 @@ static void advertising_init(void)
     ble_advertising_init_t init;
     memset(&init, 0, sizeof(init));
 
-////////Set manufacturing data///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Set manufacturing data
    /* ble_advdata_manuf_data_t                  manuf_data; //Variable to hold manufacturer specific data
     uint8_t data[]                            = "SomeData!"; //Our data to advertise
     manuf_data.company_identifier             =  0x0059; //Nordics company ID
@@ -623,31 +619,25 @@ static void advertising_init(void)
     manuf_data.data.size                      = sizeof(data);
     init.advdata.p_manuf_specific_data = &manuf_data;*/
 
+//Build advertising data struct to pass into @ble_advertising_init
 
-
-    init.advdata.name_type               = BLE_ADVDATA_FULL_NAME;
-
-
-////// SHORTEN THE ADVERTISING NAME ///////////////////////////////////////////////////
-    //init.advdata.name_type               = BLE_ADVDATA_SHORT_NAME;
-    //init.advdata.short_name_len         = 6;
-
+    init.advdata.name_type               = BLE_ADVDATA_SHORT_NAME; // Use a shortened name
+    init.advdata.short_name_len = 6; // Advertise only first 6 letters of name
     init.advdata.include_appearance      = true;
     init.advdata.flags                   = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
     init.advdata.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
     init.advdata.uuids_complete.p_uuids  = m_adv_uuids;
-////SET POWER LEVEL///////////////////////////////////////////////////////////////////
-    /*int8_t tx_power                   = -4;
-    init.advdata.p_tx_power_level = &tx_power;*/
+    int8_t tx_power                   = -4;// Set Power Level
+    init.advdata.p_tx_power_level = &tx_power;
 
     // Prepare the scan response manufacturer specific data packet
-    /*ble_advdata_manuf_data_t  manuf_data_response;
+    ble_advdata_manuf_data_t  manuf_data_response;
     uint8_t                     data_response[] = "Many_bytes_of_data";
     manuf_data_response.company_identifier  = 0x0059;
     manuf_data_response.data.p_data         = data_response;
     manuf_data_response.data.size           = sizeof(data_response);
     init.srdata.name_type = BLE_ADVDATA_NO_NAME;
-    init.srdata.p_manuf_specific_data = &manuf_data_response;*/
+    init.srdata.p_manuf_specific_data = &manuf_data_response;
 
     init.config.ble_adv_fast_enabled  = true;
     init.config.ble_adv_fast_interval = APP_ADV_INTERVAL;
@@ -741,6 +731,7 @@ int main(void)
 
     // Initialize.
     log_init();
+    timers_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
     ble_stack_init();
