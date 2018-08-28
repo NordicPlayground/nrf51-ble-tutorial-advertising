@@ -13,6 +13,12 @@ iar/
 !*.s
 !*.ld
 !*.hex
+!*.xml
+!*.jlink
+!*.emSession
+!*.emProject
+
+
 JLinkLog.txt
 !hex/*
 tutorial_draft/
