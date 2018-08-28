@@ -15,7 +15,7 @@ Requirements
 
 Other kits, dongles and software versions might work as well, but this is what I have used. This tutorial will not cover how to install and setup the software. Please search the forum if you run into trouble before posting questions here. 
 
-To compile the example download the files and copy the folder "nrf52-ble-tutorial-advertising" to "your_SDK_folder\examples\ble_peripheral". Your main.c file should then be found in the folder "your_SDK_folder\examples\ble_peripheral\nrf5x-ble-tutorial-advertising". 
+To compile the example download the files and copy the folder "nrf52-ble-tutorial-advertising" to "your_SDK_folder\examples\ble_peripheral". Your main.c file should then be found in the folder "your_SDK_folder\examples\ble_peripheral\nrf52-ble-tutorial-advertising". 
 
 Further instructions and links to firmware and software are provided in the tutorial.
 
