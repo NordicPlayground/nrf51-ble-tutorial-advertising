@@ -117,6 +117,8 @@ BLE_ADVERTISING_DEF(m_advertising);                                             
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        /**< Handle of the current connection. */
 
 
+
+
 static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
 {
     {BLE_UUID_DEVICE_INFORMATION_SERVICE, BLE_UUID_TYPE_BLE}
@@ -249,6 +251,7 @@ static void timers_init(void)
     // Initialize timer module.
     ret_code_t err_code = app_timer_init();
     APP_ERROR_CHECK(err_code);
+
 }
 
 
@@ -270,7 +273,8 @@ static void gap_params_init(void)
                                           strlen(DEVICE_NAME));
     APP_ERROR_CHECK(err_code);
 
-      /* err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_);
+
+       /*err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_);
        APP_ERROR_CHECK(err_code); */
 
     memset(&gap_conn_params, 0, sizeof(gap_conn_params));
@@ -377,6 +381,7 @@ static void conn_params_init(void)
     err_code = ble_conn_params_init(&cp_init);
     APP_ERROR_CHECK(err_code);
 }
+
 
 
 
@@ -721,7 +726,7 @@ int main(void)
     peer_manager_init();
 
     // Start execution.
-    NRF_LOG_INFO("Template example started.");
+    NRF_LOG_INFO("Ble tutorial started.");
 
     advertising_start(erase_bonds);
 
